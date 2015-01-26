@@ -12,12 +12,18 @@
             <h2>{{ team.name }}</h2>
             {{ formset.management_form }}
             {% for form in formset %}
-
                 {{ form.bowler_id }}
                 {{ form.bowler_name }}
-                {{ form.split }}
 
-                <p>{{ form.bowler_name.value }}: {{ form.score }}  {{ form.errors }}</p>
+                {% if frame_id < 10 %}
+                    <p>{{ form.bowler_name.value }}: {{ form.score }}  {{ form.split }} SPLIT? {{ form.errors }}</p>
+                {% else %}
+                    <p>{{ form.bowler_name.value }}: {{ form.score }}
+                        {{ form.split10 }} SPLIT First Ball
+                        {{ form.split11 }} SPLIT Second Ball
+                        {{ form.split12 }} SPLIT Third Ball
+                        {{ form.errors }}</p>
+                {% endif %}
             {% endfor %}
         {% endfor %}
 

@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.forms.models import modelformset_factory, ModelForm
 from django.forms.formsets import formset_factory
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, QueryDict
 from django.forms.widgets import HiddenInput
 from django.contrib import messages
 from django import forms
@@ -136,21 +136,13 @@ class BowlerCreate(TemplateView, TeamMixin):
     def get_success_url(self):
         return self.team.get_absolute_url()
 
-    def get_formset(self):
+    def get_formset(self, form_data=None):
+
         bowler_form_set = modelformset_factory(Bowler,
                                                extra=self.match.players_per_team,
                                                max_num=self.match.players_per_team,
                                                fields=('name', 'handicap', 'type'))
-        formset = bowler_form_set(queryset=Bowler.objects.filter(team=self.team))
-
-        return formset
-
-    def get_post_formset(self):
-        bowler_form_set = modelformset_factory(Bowler,
-                                               extra=self.match.players_per_team,
-                                               max_num=self.match.players_per_team,
-                                               fields=('name', 'handicap', 'type'))
-        formset = bowler_form_set(self.request.POST)
+        formset = bowler_form_set(form_data, ueryset=Bowler.objects.filter(team=self.team))
 
         return formset
 
@@ -192,7 +184,7 @@ class BowlerCreate(TemplateView, TeamMixin):
         self.match = self.get_match(self.kwargs['match_pk'])
         self.team = self.get_team(self.kwargs['team_pk'])
 
-        form = self.get_post_formset()
+        form = self.get_formset(form_data=self.request.POST)
         if form.is_valid():
             return self.form_valid(form)
         else:
@@ -229,17 +221,17 @@ class GameDisplay(TemplateView, TeamMixin):
 class FrameForm(forms.Form):
     bowler_id = forms.CharField(widget=HiddenInput())
     bowler_name = forms.CharField(widget=HiddenInput())
-    score = forms.CharField()
+    score = forms.CharField(required=False)
     split = forms.BooleanField(required=False)
 
 
 class TenthFrameForm(forms.Form):
     bowler_id = forms.CharField(widget=HiddenInput())
     bowler_name = forms.CharField(widget=HiddenInput())
-    score = forms.CharField()
-    split10 = forms.BooleanField()
-    split11 = forms.BooleanField()
-    split12 = forms.BooleanField()
+    score = forms.CharField(required=False)
+    split10 = forms.BooleanField(required=False)
+    split11 = forms.BooleanField(required=False)
+    split12 = forms.BooleanField(required=False)
 
 
 class FrameEdit(TemplateView, MatchMixin):
@@ -248,8 +240,11 @@ class FrameEdit(TemplateView, MatchMixin):
     def get_success_url(self):
         return reverse('bowling_entry_gamedisplay', args=[self.match.pk, self.game_id])
 
-    def get_formset(self):
-        bowler_form_set = formset_factory(FrameForm, extra=0)
+    def get_formset(self, form_data=None):
+        if self.frame_id < 10:
+            bowler_form_set = formset_factory(FrameForm, extra=0)
+        else:
+            bowler_form_set = formset_factory(TenthFrameForm, extra=0)
 
         game_data = self.match.get_game_data(self.game_id)
 
@@ -258,20 +253,18 @@ class FrameEdit(TemplateView, MatchMixin):
         for team, team_data in game_data:
             frame_data = []
             for bowler, game in team_data:
-                frame_data.append({'bowler_id': bowler.pk, 'bowler_name': bowler.name,
-                                   'score': game.get_frame(self.frame_id)})
+                if self.frame_id < 10:
+                    frame_data.append({'bowler_id': bowler.pk, 'bowler_name': bowler.name,
+                                       'score': game.get_frame(self.frame_id),
+                                       'split': game.is_split(self.frame_id-1)})
+                else:
+                    frame_data.append({'bowler_id': bowler.pk, 'bowler_name': bowler.name,
+                                       'score': game.get_frame(self.frame_id),
+                                       'split10': game.is_split(9),
+                                       'split11': game.is_split(10),
+                                       'split12': game.is_split(11)})
 
-            formset = bowler_form_set(prefix=team.pk, initial=frame_data)
-            formsets.append((team, formset))
-
-        return formsets
-
-    def get_post_formset(self):
-        bowler_form_set = formset_factory(FrameForm)
-
-        formsets = []
-        for team in self.match.teams.all():
-            formset = bowler_form_set(self.request.POST, prefix=team.pk)
+            formset = bowler_form_set(form_data, prefix=team.pk, initial=frame_data)
             formsets.append((team, formset))
 
         return formsets
@@ -287,6 +280,14 @@ class FrameEdit(TemplateView, MatchMixin):
 
                 bowler = Bowler.objects.get(pk=bowler_id)
                 game = Game.objects.get(bowler=bowler, game_number=self.game_id)
+
+                if self.frame_id < 10:
+                    # Splits are 0 indexed frame values.
+                    game.set_split(self.frame_id-1, form.cleaned_data['split'])
+                else:
+                    game.set_split(9, form.cleaned_data['split10'])
+                    game.set_split(10, form.cleaned_data['split11'])
+                    game.set_split(11, form.cleaned_data['split12'])
 
                 game.set_frame(self.frame_id, score)
                 game.save()
@@ -319,7 +320,7 @@ class FrameEdit(TemplateView, MatchMixin):
         self.game_id = int(self.kwargs['game_id'])
         self.frame_id = int(self.kwargs['frame_id'])
 
-        formsets = self.get_post_formset()
+        formsets = self.get_formset(self.request.POST)
 
         valid = True
 

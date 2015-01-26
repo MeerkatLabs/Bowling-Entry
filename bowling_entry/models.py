@@ -47,18 +47,13 @@ class Match(models.Model):
         return range(1, self.number_of_games+1)
 
     def get_game_data(self, game_id):
-        print game_id
-        print self.number_of_games
 
         if game_id > self.number_of_games:
-            print 'Returning early'
             return []
 
         result = []
         for team in self.teams.all().order_by('pk'):
             result.append((team, team.get_game_iterable(game_id)))
-
-        print result
 
         return result
 
@@ -148,22 +143,44 @@ class Game(models.Model):
         if frame_id == 1:
             self.frame01 = score
         elif frame_id == 2:
-            self.frame02= score
+            self.frame02 = score
         elif frame_id == 3:
-            self.frame03= score
+            self.frame03 = score
         elif frame_id == 4:
-            self.frame04= score
+            self.frame04 = score
         elif frame_id == 5:
-            self.frame05= score
+            self.frame05 = score
         elif frame_id == 6:
-            self.frame06= score
+            self.frame06 = score
         elif frame_id == 7:
-            self.frame07= score
+            self.frame07 = score
         elif frame_id == 8:
-            self.frame08= score
+            self.frame08 = score
         elif frame_id == 9:
-            self.frame09= score
+            self.frame09 = score
         elif frame_id == 10:
-            self.frame10= score
+            self.frame10 = score
 
+    def set_split(self, frame_id, is_split):
+        if self.splits:
+            splits = {int(a) for a in self.splits.split(',')}
+        else:
+            splits = set()
 
+        if is_split:
+            splits.add(frame_id)
+        elif frame_id in splits:
+            splits.remove(frame_id)
+
+        self.splits = ','.join([str(a) for a in splits])
+
+    def is_split(self, frame_id):
+        return frame_id in self.get_splits()
+
+    def get_splits(self):
+        if self.splits:
+            splits = {int(a) for a in self.splits.split(',')}
+        else:
+            splits = set()
+
+        return splits
