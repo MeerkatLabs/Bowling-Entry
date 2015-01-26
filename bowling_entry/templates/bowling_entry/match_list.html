@@ -1,0 +1,16 @@
+{% extends 'bowling_entry/base.html' %}
+
+{% block body_title %}Match List{% endblock %}
+
+{% block body %}
+
+    {{ match.date }}
+    <ul>
+        {% for match in matches %}
+            <li><a href="{{ match.get_absolute_url }}">{{ match.date }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'bowling_entry_matchcreate' %}">Create New Match</a>
+
+{% endblock %}

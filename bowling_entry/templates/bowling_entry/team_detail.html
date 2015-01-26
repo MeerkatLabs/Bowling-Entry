@@ -1,0 +1,21 @@
+{% extends 'bowling_entry/base.html' %}
+
+{% block body_title %}Team Details{% endblock %}
+
+{% block body %}
+
+    {{ match.date }}
+
+    <p>{{ team.name }}</p>
+
+    <ul>
+    {% for bowler in team.bowlers.all %}
+        <li>{{ bowler.name }} {{  bowler.type }} {{ bowler.handicap }}</li>
+    {% endfor %}
+    </ul>
+
+    <p><a href="{% url 'bowling_entry_bowlercreate' match.pk team.pk %}">Edit Bowlers</a></p>
+
+    <p><a href="{{ match.get_absolute_url }}">Back to Match</a></p>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'bowling_entry/base.html' %}
+
+{% block body_title %}Edit frame {{ frame_id }}{% endblock %}
+
+{% block body %}
+
+    <form method="post" action="{% url 'bowling_entry_frameedit' match.pk game_id frame_id %}">
+
+        {% csrf_token %}
+
+        {% for team, formset in formsets %}
+            <h2>{{ team.name }}</h2>
+            {{ formset.management_form }}
+            {% for form in formset %}
+
+                {{ form.bowler_id }}
+                {{ form.bowler_name }}
+                {{ form.split }}
+
+                <p>{{ form.bowler_name.value }}: {{ form.score }}  {{ form.errors }}</p>
+            {% endfor %}
+        {% endfor %}
+
+        <input type="submit">
+
+    </form>
+
+{% endblock %}

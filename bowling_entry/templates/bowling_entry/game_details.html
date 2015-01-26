@@ -1,0 +1,56 @@
+{% extends 'bowling_entry/base.html' %}
+
+{% block body_title %}Game {{ game_id }} Details{% endblock %}
+
+{% block body %}
+
+    {{ match.date }}
+
+    {% for team, games in game_data %}
+
+        <h1>{{ team.name }}</h1>
+
+        <table style="width:100%">
+            <tr>
+                <th>Player</th>
+                <th>Handicap</th>
+                <th><a href="{% url 'bowling_entry_frameedit' match.pk game_id 1 %}">1</a></th>
+                <th><a href="{% url 'bowling_entry_frameedit' match.pk game_id 2 %}">2</a></th>
+                <th><a href="{% url 'bowling_entry_frameedit' match.pk game_id 3 %}">3</a></th>
+                <th><a href="{% url 'bowling_entry_frameedit' match.pk game_id 4 %}">4</a></th>
+                <th><a href="{% url 'bowling_entry_frameedit' match.pk game_id 5 %}">5</a></th>
+                <th><a href="{% url 'bowling_entry_frameedit' match.pk game_id 6 %}">6</a></th>
+                <th><a href="{% url 'bowling_entry_frameedit' match.pk game_id 7 %}">7</a></th>
+                <th><a href="{% url 'bowling_entry_frameedit' match.pk game_id 8 %}">8</a></th>
+                <th><a href="{% url 'bowling_entry_frameedit' match.pk game_id 9 %}">9</a></th>
+                <th><a href="{% url 'bowling_entry_frameedit' match.pk game_id 10 %}">10</a></th>
+                <th>Total</th>
+            </tr>
+            {% for bowler, game in games %}
+                <tr>
+                    <td>{{ bowler.name }}</td>
+                    <td>{{ bowler.handicap }}</td>
+                    <td>{{ game.frame01 }}</td>
+                    <td>{{ game.frame02 }}</td>
+                    <td>{{ game.frame03 }}</td>
+                    <td>{{ game.frame04 }}</td>
+                    <td>{{ game.frame05 }}</td>
+                    <td>{{ game.frame06 }}</td>
+                    <td>{{ game.frame07 }}</td>
+                    <td>{{ game.frame08 }}</td>
+                    <td>{{ game.frame09 }}</td>
+                    <td>{{ game.frame10 }}</td>
+                    <td>Total</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    {% endfor %}
+
+    {% for other_game_id in match.game_range %}
+        <p><a href="{% url 'bowling_entry_gamedisplay' match.pk other_game_id %}">Game {{ other_game_id }}</a></p>
+    {% endfor %}
+
+    <p><a href="{{ match.get_absolute_url }}">Back to Match</a></p>
+
+{% endblock %}

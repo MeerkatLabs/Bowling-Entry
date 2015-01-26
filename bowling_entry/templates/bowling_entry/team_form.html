@@ -1,0 +1,17 @@
+{% extends 'bowling_entry/base.html' %}
+
+{% block body_title %}Create Team{% endblock %}
+
+{% block body %}
+
+    <form method="post" action="{% url 'bowling_entry_teamcreate' match.pk %}">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <input type="submit">
+
+    </form>
+
+{% endblock %}

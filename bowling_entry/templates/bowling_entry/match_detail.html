@@ -1,0 +1,30 @@
+{% extends 'bowling_entry/base.html' %}
+
+{% block body_title %}Match Details{% endblock %}
+
+{% block body %}
+
+    {{ match.date }}
+    <ul>
+    {% for team in match.teams.all %}
+        <li><a href="{{ team.get_absolute_url }}">{{ team.name }}</a></li>
+    {% endfor %}
+    </ul>
+
+    {% if match.teams.all|length < 2 %}
+    <p><a href="{% url 'bowling_entry_teamcreate' match.pk %}">Create Team</a></p>
+    {% endif %}
+
+    {% if match.can_start_games %}
+    <p><a href="{% url 'bowling_entry_startgames' match.pk %}">Start Games</a></p>
+    {% endif %}
+
+    {% if match.games_created %}
+        {% for game_id in match.game_range %}
+            <p><a href="{% url 'bowling_entry_gamedisplay' match.pk game_id %}">Game {{ game_id }}</a></p>
+        {% endfor %}
+    {% endif %}
+
+    <p><a href="{% url 'bowling_entry_matchlist' %}">Match List</a></p>
+
+{% endblock %}
