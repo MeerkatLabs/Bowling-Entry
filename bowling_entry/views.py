@@ -238,6 +238,9 @@ class FrameEdit(TemplateView, MatchMixin):
     template_name = 'bowling_entry/frame_edit.html'
 
     def get_success_url(self):
+        if 'next' in self.request.POST and self.frame_id != 10:
+            if self.request.POST['next'] == 'on':
+                return reverse('bowling_entry_frameedit', args=[self.match.pk, self.game_id, self.frame_id + 1])
         return reverse('bowling_entry_gamedisplay', args=[self.match.pk, self.game_id])
 
     def get_formset(self, form_data=None):
