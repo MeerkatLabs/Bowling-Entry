@@ -4,7 +4,7 @@ URLS for the bowling entry application.
 from django.contrib.auth.decorators import login_required
 from django.conf.urls import url, patterns
 from bowling_entry.views import (MatchList, MatchCreate, MatchDetails, TeamCreate, BowlerCreate, TeamDetails,
-                                 StartGames, GameDisplay, FrameEdit)
+                                 StartGames, GameDisplay, FrameEdit, FrameBowlerEdit)
 
 
 urlpatterns = patterns('',
@@ -29,6 +29,9 @@ urlpatterns = patterns('',
                        url(r'^match/(?P<match_pk>\d+)/game/(?P<game_id>\d+)/edit/(?P<frame_id>\d+)/$',
                            login_required(FrameEdit.as_view()),
                            name='bowling_entry_frameedit'),
+                       url(r'^match/(?P<match_pk>\d+)/game/(?P<game_id>\d+)/edit/(?P<frame_id>\d+)/bowler/(?P<bowler_id>\d+)/$',
+                           login_required(FrameBowlerEdit.as_view()),
+                           name='bowling_entry_framebowleredit'),
                        url(r'^$', login_required(MatchList.as_view()),
                            name='bowling_entry_matchlist'),
 

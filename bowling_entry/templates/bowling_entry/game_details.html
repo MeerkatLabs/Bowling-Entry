@@ -33,16 +33,36 @@
                 <tr>
                     <td>{{ bowler.name }}</td>
                     <td>{{ bowler.handicap }}</td>
-                    <td {% if 0 in splits %}style="color: red"{% endif %}>{{ game.frame01 }}</td>
-                    <td {% if 1 in splits %}style="color: red"{% endif %}>{{ game.frame02 }}</td>
-                    <td {% if 2 in splits %}style="color: red"{% endif %}>{{ game.frame03 }}</td>
-                    <td {% if 3 in splits %}style="color: red"{% endif %}>{{ game.frame04 }}</td>
-                    <td {% if 4 in splits %}style="color: red"{% endif %}>{{ game.frame05 }}</td>
-                    <td {% if 5 in splits %}style="color: red"{% endif %}>{{ game.frame06 }}</td>
-                    <td {% if 6 in splits %}style="color: red"{% endif %}>{{ game.frame07 }}</td>
-                    <td {% if 7 in splits %}style="color: red"{% endif %}>{{ game.frame08 }}</td>
-                    <td {% if 8 in splits %}style="color: red"{% endif %}>{{ game.frame09 }}</td>
-                    <td {% if 10 in splits or 9 in splits or 11 in splits %}style="color: red"{% endif %}>{{ game.frame10 }}</td>
+                    <td {% if 0 in splits %}style="color: red"{% endif %}>
+                        <a href="{% url 'bowling_entry_framebowleredit' match.pk game_id 1 bowler.id %}">{{ game.frame01 }}</a>
+                    </td>
+                    <td {% if 1 in splits %}style="color: red"{% endif %}>
+                        <a href="{% url 'bowling_entry_framebowleredit' match.pk game_id 2 bowler.id %}">{{ game.frame02 }}</a>
+                    </td>
+                    <td {% if 2 in splits %}style="color: red"{% endif %}>
+                        <a href="{% url 'bowling_entry_framebowleredit' match.pk game_id 3 bowler.id %}">{{ game.frame03 }}</a>
+                    </td>
+                    <td {% if 3 in splits %}style="color: red"{% endif %}>
+                        <a href="{% url 'bowling_entry_framebowleredit' match.pk game_id 4 bowler.id %}">{{ game.frame04 }}</a>
+                    </td>
+                    <td {% if 4 in splits %}style="color: red"{% endif %}>
+                        <a href="{% url 'bowling_entry_framebowleredit' match.pk game_id 5 bowler.id %}">{{ game.frame05 }}</a>
+                    </td>
+                    <td {% if 5 in splits %}style="color: red"{% endif %}>
+                        <a href="{% url 'bowling_entry_framebowleredit' match.pk game_id 6 bowler.id %}">{{ game.frame06 }}</a>
+                    </td>
+                    <td {% if 6 in splits %}style="color: red"{% endif %}>
+                        <a href="{% url 'bowling_entry_framebowleredit' match.pk game_id 7 bowler.id %}">{{ game.frame07 }}</a>
+                    </td>
+                    <td {% if 7 in splits %}style="color: red"{% endif %}>
+                        <a href="{% url 'bowling_entry_framebowleredit' match.pk game_id 8 bowler.id %}">{{ game.frame08 }}</a>
+                    </td>
+                    <td {% if 8 in splits %}style="color: red"{% endif %}>
+                        <a href="{% url 'bowling_entry_framebowleredit' match.pk game_id 9 bowler.id %}">{{ game.frame09 }}</a>
+                    </td>
+                    <td {% if 10 in splits or 9 in splits or 11 in splits %}style="color: red"{% endif %}>
+                        <a href="{% url 'bowling_entry_framebowleredit' match.pk game_id 10 bowler.id %}">{{ game.frame10 }}</a>
+                    </td>
                     <td>Total</td>
                 </tr>
                 {% endwith %}

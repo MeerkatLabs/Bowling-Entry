@@ -338,3 +338,85 @@ class FrameEdit(TemplateView, MatchMixin):
         context['game_id'] = self.game_id
         context['frame_id'] = self.frame_id
         return context
+
+
+class FrameBowlerEdit(FormView, MatchMixin):
+    template_name = 'bowling_entry/frame_bowler_edit.html'
+
+    def get_form_class(self):
+        if self.frame_id == 10:
+            return TenthFrameForm
+        else:
+            return FrameForm
+
+    def get_initial(self):
+        bowler = Bowler.objects.get(pk=self.bowler_id)
+        game = Game.objects.get(game_number=self.game_id, bowler=bowler)
+
+        result = {'bowler_id': bowler.pk,
+                  'bowler_name': bowler.name,
+                  'score': game.get_frame(self.frame_id),
+                  'split': game.is_split(self.frame_id-1),
+                  'split10': game.is_split(9),
+                  'split11': game.is_split(10),
+                  'split12': game.is_split(11)}
+
+        return result
+
+    def form_valid(self, form):
+        """
+        If the form is valid, redirect to the supplied URL.
+        """
+        bowler_id = form.cleaned_data['bowler_id']
+        score = form.cleaned_data['score']
+
+        bowler = Bowler.objects.get(pk=bowler_id)
+        game = Game.objects.get(bowler=bowler, game_number=self.game_id)
+
+        if self.frame_id < 10:
+            # Splits are 0 indexed frame values.
+            game.set_split(self.frame_id-1, form.cleaned_data['split'])
+        else:
+            game.set_split(9, form.cleaned_data['split10'])
+            game.set_split(10, form.cleaned_data['split11'])
+            game.set_split(11, form.cleaned_data['split12'])
+
+        game.set_frame(self.frame_id, score)
+        game.save()
+
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('bowling_entry_gamedisplay', args=[self.match.pk, self.game_id])
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates a blank version of the form.
+        """
+        self.match = self.get_match(self.kwargs['match_pk'])
+        self.game_id = int(self.kwargs['game_id'])
+        self.frame_id = int(self.kwargs['frame_id'])
+        self.bowler_id = int(self.kwargs['bowler_id'])
+        return super(FrameBowlerEdit, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a form instance with the passed
+        POST variables and then checked for validity.
+        """
+        self.match = self.get_match(self.kwargs['match_pk'])
+        self.game_id = int(self.kwargs['game_id'])
+        self.frame_id = int(self.kwargs['frame_id'])
+        self.bowler_id = int(self.kwargs['bowler_id'])
+
+        return super(FrameBowlerEdit, self).post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(FrameBowlerEdit, self).get_context_data(**kwargs)
+
+        context['match'] = self.match
+        context['bowler_id'] = self.bowler_id
+        context['frame_id'] = self.frame_id
+        context['game_id'] = self.game_id
+
+        return context
