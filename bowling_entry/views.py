@@ -142,7 +142,7 @@ class BowlerCreate(TemplateView, TeamMixin):
                                                extra=self.match.players_per_team,
                                                max_num=self.match.players_per_team,
                                                fields=('name', 'handicap', 'type'))
-        formset = bowler_form_set(form_data, ueryset=Bowler.objects.filter(team=self.team))
+        formset = bowler_form_set(form_data, queryset=Bowler.objects.filter(team=self.team))
 
         return formset
 

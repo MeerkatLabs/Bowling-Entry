@@ -23,10 +23,13 @@ class Match(models.Model):
 
         result = not self.games_created
 
+        all_teams = self.teams.all()
+
         # Need to verify that both teams have been defined and that all of the teams have all of the players defined
-        if len(self.teams.all()) == 2:
-            for team in self.teams.all():
-                result = result and len(team.bowlers.all()) == self.players_per_team
+        if result and len(all_teams) == 2:
+            for team in all_teams:
+                if not team.is_team_ready():
+                    break
         else:
             result = False
 
@@ -74,6 +77,9 @@ class Team(models.Model):
 
         return result
 
+    def is_team_ready(self):
+        return len(self.bowlers.all()) == self.match.players_per_team
+
     def get_absolute_url(self):
         return reverse('bowling_entry_teamdetails', args=[self.match.pk, self.pk])
 
@@ -92,7 +98,7 @@ class Bowler(models.Model):
 
     order = models.IntegerField(blank=False)
     name = models.CharField(blank=False, max_length=100)
-    handicap = models.IntegerField(blank=True)
+    handicap = models.IntegerField(blank=True, null=True)
     type = models.CharField(blank=False, max_length=10, choices=BOWLER_TYPE_CHOICES, default=REGULAR)
     team = models.ForeignKey(Team, blank=False, related_name='bowlers')
 
