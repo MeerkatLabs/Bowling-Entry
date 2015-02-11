@@ -4,110 +4,173 @@ from django.core.urlresolvers import reverse
 
 # Create your models here.
 
+REGULAR = 'regular'
+SUBSTITUTE = 'substitute'
+VACANT = 'vacant'
+BLIND = 'blind'
+BOWLER_TYPE_CHOICES = (
+    (REGULAR, 'Regular'),
+    (SUBSTITUTE, 'Substitute'),
+    (VACANT, 'Vacant'),
+    (BLIND, 'Blind'),
+)
+
+
+class League(models.Model):
+    """
+    Definition of a league
+    """
+    secretary = models.ForeignKey(User, related_name='leagues')
+    name = models.CharField(max_length=100)
+    start_date = models.DateField()
+    number_of_weeks = models.IntegerField(blank=False, default=10)
+    number_of_games = models.IntegerField(blank=False, default=3)
+    players_per_team = models.IntegerField(blank=False, default=4)
+    points_per_game = models.IntegerField(blank=False, default=2)
+    points_for_totals = models.IntegerField(blank=False, default=2)
+    handicap_max = models.IntegerField(blank=False, default=210)
+    handicap_percentage = models.IntegerField(blank=False, default=90)
+
+    def __unicode__(self):
+        return self.name
+
+    def substitutes(self):
+        return self.bowlers.filter(team=None)
+
+
+class Week(models.Model):
+    """
+    Week object used to collect all of the instance data
+    """
+    league = models.ForeignKey(League, related_name='weeks')
+    date = models.DateField(blank=False)
+
+    def __unicode__(self):
+        return "%s: %s" % (self.league, self.date)
+
+
+class TeamDefinition(models.Model):
+    """
+    Definition of a team.  This will be used to define what team will be used from week to week
+    """
+    name = models.CharField(max_length=100)
+    league = models.ForeignKey(League, related_name='teams', blank=False)
+
+    def __unicode__(self):
+        return "%s: %s" % (self.league, self.name)
+
+
+class BowlerDefinition(models.Model):
+    """
+    Definition of a bowler that will participate in the league.
+    """
+    name = models.CharField(max_length=100)
+    handicap = models.IntegerField(blank=True, null=True)
+    league = models.ForeignKey(League, related_name='bowlers', null=False, blank=False)
+    team = models.ForeignKey(TeamDefinition, related_name='bowlers', blank=True, null=True)
+
+    def __unicode__(self):
+        if self.team is None:
+            return "%s: %s Substitute Definition" % (self.league, self.name)
+        else:
+            return "%s: %s Definition" % (self.team, self.name)
+
+
+class TeamInstance(models.Model):
+    """
+    Instance of a team that is bowling on a given week
+    """
+    definition = models.ForeignKey(TeamDefinition)
+    match = models.ForeignKey('Match')
+
+    def define_bowlers(self):
+        index = 0
+        for bowler in self.definition.bowlers.all():
+            bowler_instance = TeamInstanceBowler(definition=bowler, team=self,
+                                                 type=REGULAR, handicap=bowler.handicap,
+                                                 order=index)
+            bowler_instance.save()
+            index += 1
+
+    def bowlers_defined(self):
+        league = self.match.week.league
+
+        return len(self.bowlers) == league.players_per_team
+
+    def create_games(self):
+        definitions = []
+
+        for bowler in self.bowlers.all():
+            games = bowler.get_or_create_games()
+            definitions.append(dict(bowler=bowler, games=games))
+
+        return definitions
+
+
+class TeamInstanceBowler(models.Model):
+    """
+    The instance of a bowler that is bowling on a given week
+    """
+    definition = models.ForeignKey(BowlerDefinition)
+    team = models.ForeignKey(TeamInstance, related_name='bowlers')
+    type = models.CharField(max_length=10, blank=False, choices=BOWLER_TYPE_CHOICES, default=REGULAR)
+    handicap = models.IntegerField(blank=True, null=True)
+    order = models.IntegerField(blank=False)
+
+    class Meta:
+        ordering = ['order']
+
+    def __unicode__(self):
+        return '%s %s %s' % (self.definition.league, self.team.definition.name, self.definition.name)
+
+    def get_or_create_games(self):
+        games = self.games.all()
+
+        if len(games) == self.definition.league.number_of_games:
+            return games
+
+        games = []
+
+        for game_index in range(0, self.definition.league.number_of_games):
+            game = Game(bowler=self, game_number=game_index+1)
+            game.save()
+            games.append(game)
+
+        return games
+
 
 class Match(models.Model):
     """
     Class that will define a match that is being recorded.
     """
-    date = models.DateField(blank=False)
-    creator = models.ForeignKey(User, blank=False, related_name='matches')
-    number_of_games = models.IntegerField(blank=False, default=3)
-    players_per_team = models.IntegerField(blank=False, default=5)
+    week = models.ForeignKey(Week, related_name='matches')
     lanes = models.CommaSeparatedIntegerField(blank=True, max_length=7)
     games_created = models.BooleanField(blank=False, default=False)
+    teams = models.ManyToManyField(TeamDefinition, through=TeamInstance)
 
     def get_absolute_url(self):
         return reverse('bowling_entry_matchdetails', args=[self.pk])
 
-    def can_start_games(self):
+    def get_games(self):
 
-        result = not self.games_created
-
-        all_teams = self.teams.all()
-
-        # Need to verify that both teams have been defined and that all of the teams have all of the players defined
-        if result and len(all_teams) == 2:
-            for team in all_teams:
-                if not team.is_team_ready():
-                    break
-        else:
-            result = False
-
-        return result
-
-    def start_games(self):
+        results = []
 
         for team in self.teams.all():
-            for bowler in team.bowlers.all():
-                for game_number in range(0, self.number_of_games):
-                    game = Game(bowler=bowler, game_number=(game_number+1))
-                    game.save()
+            team_instance = TeamInstance.objects.get(match=self, definition=team)
+            bowler_games = team_instance.create_games()
+            results.append(dict(team=team, bowlers=bowler_games))
 
         self.games_created = True
         self.save()
 
-    def game_range(self):
-        return range(1, self.number_of_games+1)
-
-    def get_game_data(self, game_id):
-
-        if game_id > self.number_of_games:
-            return []
-
-        result = []
-        for team in self.teams.all().order_by('pk'):
-            result.append((team, team.get_game_iterable(game_id)))
-
-        return result
-
-
-class Team(models.Model):
-    name = models.CharField(blank=False, max_length=100)
-    match = models.ForeignKey(Match, blank=False, related_name='teams')
-
-    def get_game_iterable(self, game_id):
-
-        if game_id > self.match.number_of_games:
-            return []
-
-        result = []
-
-        for bowler in self.bowlers.all().order_by('order'):
-            result.append((bowler, bowler.games.filter(game_number=game_id).get()))
-
-        return result
-
-    def is_team_ready(self):
-        return len(self.bowlers.all()) == self.match.players_per_team
-
-    def get_absolute_url(self):
-        return reverse('bowling_entry_teamdetails', args=[self.match.pk, self.pk])
-
-
-class Bowler(models.Model):
-    REGULAR = 'regular'
-    SUBSTITUTE = 'substitute'
-    VACANT = 'vacant'
-    BLIND = 'blind'
-    BOWLER_TYPE_CHOICES = (
-        (REGULAR, 'Regular'),
-        (SUBSTITUTE, 'Substitute'),
-        (VACANT, 'Vacant'),
-        (BLIND, 'Blind'),
-    )
-
-    order = models.IntegerField(blank=False)
-    name = models.CharField(blank=False, max_length=100)
-    handicap = models.IntegerField(blank=True, null=True)
-    type = models.CharField(blank=False, max_length=10, choices=BOWLER_TYPE_CHOICES, default=REGULAR)
-    team = models.ForeignKey(Team, blank=False, related_name='bowlers')
+        return results
 
 
 class Game(models.Model):
     """
     Collection of all of the frames that were bowled by the bowler.
     """
-    bowler = models.ForeignKey('Bowler', blank=False, related_name='games')
+    bowler = models.ForeignKey(TeamInstanceBowler, blank=False, null=False, related_name='games')
     game_number = models.IntegerField(blank=False)
     frame01 = models.CommaSeparatedIntegerField(max_length=4, blank=True)
     frame02 = models.CommaSeparatedIntegerField(max_length=4, blank=True)
@@ -190,3 +253,4 @@ class Game(models.Model):
             splits = set()
 
         return splits
+
