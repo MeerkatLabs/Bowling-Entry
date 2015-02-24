@@ -100,6 +100,13 @@ class SubstitutesList(generics.ListCreateAPIView, LeagueMixin):
         serializer.save(league=self.get_league(), team=None)
 
 
+class SubstituteDetail(generics.RetrieveUpdateDestroyAPIView, LeagueMixin):
+    serializer_class = bowling_serializers.Substitute
+
+    def get_queryset(self):
+        return self.get_league().substitutes()
+
+
 class WeekCreateList(generics.ListCreateAPIView, LeagueMixin):
     serializer_class = bowling_serializers.Week
 

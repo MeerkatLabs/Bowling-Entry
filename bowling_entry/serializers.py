@@ -3,9 +3,23 @@ from bowling_entry import models as bowling_models
 from django.contrib.auth import models as auth_models
 
 
+class LeagueTeams(serializers.ModelSerializer):
+
+    class Meta:
+        model = bowling_models.TeamDefinition
+        fields = ('id', 'name', )
+
+
+class LeagueWeeks(serializers.ModelSerializer):
+
+    class Meta:
+        model = bowling_models.Week
+        fields = ('id', 'date', )
+
+
 class League(serializers.ModelSerializer):
-    teams = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    weeks = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    teams = LeagueTeams(many=True, read_only=True)
+    weeks = LeagueWeeks(many=True, read_only=True)
 
     class Meta:
         model = bowling_models.League
