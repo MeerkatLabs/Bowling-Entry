@@ -225,4 +225,10 @@ class CreateGames(generics.ListAPIView, MatchMixin):
         return response.Response(serializer.data)
 
 
+class Self(generics.RetrieveUpdateAPIView):
+    serializer_class = bowling_serializers.User
+
+    def get_object(self):
+        return self.request.user
+
 

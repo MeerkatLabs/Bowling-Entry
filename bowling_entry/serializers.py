@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from bowling_entry import models as bowling_models
+from django.contrib.auth import models as auth_models
 
 
 class League(serializers.ModelSerializer):
@@ -167,22 +168,24 @@ class Game(serializers.ModelSerializer):
         fields = ('id', 'bowler', 'game_number', 'frame01', 'frame02', 'frame03', 'frame04', 'frame05', 'frame06',
                   'frame07', 'frame08', 'frame09', 'frame10', 'splits')
 
+
 class MatchBowlerGame(serializers.ModelSerializer):
     class Meta:
         model = bowling_models.Game
 
+
 class MatchTeam(serializers.Serializer):
     bowler = serializers.PrimaryKeyRelatedField(read_only=True)
     games = MatchBowlerGame(read_only=True, many=True)
+
 
 class MatchGames(serializers.Serializer):
     team = serializers.PrimaryKeyRelatedField(read_only=True)
     bowlers = MatchTeam(read_only=True, many=True)
 
 
+class User(serializers.ModelSerializer):
 
-
-
-
-
-
+    class Meta:
+        model = auth_models.User
+        fields = ('username', 'first_name', 'last_name', 'email', )

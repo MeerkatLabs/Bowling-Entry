@@ -5,7 +5,7 @@ from django.conf.urls import url, patterns
 from bowling_entry.views import (LeagueListCreate, LeagueDetail, TeamDefinitionListCreate, TeamBowlerDefinitionDetail,
                                  TeamBowlerDefinitionListCreate, SubstitutesList, WeekCreateList, WeekDetail,
                                  MatchList, MatchDetail, MatchCreate, MatchTeamDetail, MatchTeamBowlerDetail,
-                                 CreateGames)
+                                 CreateGames, Self)
 
 
 urlpatterns = patterns('',
@@ -51,4 +51,7 @@ urlpatterns = patterns('',
                        url(r'^api/league/(?P<league_pk>\d+)/teams/(?P<team_pk>\d+)/bowlers/(?P<pk>\d+)/$',
                            TeamBowlerDefinitionDetail.as_view(),
                            name='bowling_entry_league_team_bowlers_detail'),
+                       url(r'^api/self/$',
+                           Self.as_view(),
+                           name='bowling_entry_self'),
                        )
