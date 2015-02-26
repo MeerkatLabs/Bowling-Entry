@@ -16,6 +16,7 @@ class ScoreSheetFrameListSerializer(serializers.ListSerializer):
 
         return ret
 
+
 class ScoreSheetFrame(serializers.ModelSerializer):
 
     class Meta:
@@ -44,9 +45,9 @@ class ScoreSheetGameListSerializer(serializers.ListSerializer):
 
 class ScoreSheetGame(serializers.ModelSerializer):
     game_number = serializers.IntegerField()
-    total = serializers.IntegerField()
-    frames = ScoreSheetFrame(many=True)
-    splits = serializers.SerializerMethodField()
+    total = serializers.IntegerField(required=False)
+    frames = ScoreSheetFrame(many=True, required=False)
+    splits = serializers.SerializerMethodField(required=False)
 
     class Meta:
         model = bowling_models.Game
@@ -65,7 +66,9 @@ class ScoreSheetGame(serializers.ModelSerializer):
     def update(self, instance, validated_data):
 
         ## Only fields that we are going to update are the totals
-        instance.total = validated_data.get('total')
+        total_value = validated_data.get('total')
+        if total_value is not None:
+            instance.total = total_value
         instance.save()
 
         ## TODO: Update the split and frame values.
@@ -137,8 +140,8 @@ class ScoreSheetTeam(serializers.ModelSerializer):
 
 
 class ScoreSheet(serializers.ModelSerializer):
-    team1 = ScoreSheetTeam()
-    team2 = ScoreSheetTeam()
+    team1 = ScoreSheetTeam(required=False)
+    team2 = ScoreSheetTeam(required=False)
 
     class Meta:
         model = bowling_models.Match
@@ -149,10 +152,12 @@ class ScoreSheet(serializers.ModelSerializer):
         instance.lanes = validated_data.get('lanes')
 
         team1_definition = validated_data.get('team1')
-        self.fields['team1'].update(instance.team1, team1_definition)
+        if team1_definition is not None:
+            self.fields['team1'].update(instance.team1, team1_definition)
 
         team2_definition = validated_data.get('team2')
-        self.fields['team2'].update(instance.team2, team2_definition)
+        if team2_definition is not None:
+            self.fields['team2'].update(instance.team2, team2_definition)
 
         return instance
 
