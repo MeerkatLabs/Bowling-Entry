@@ -91,12 +91,14 @@ class ScoreSheetBowlerListSerializer(serializers.ListSerializer):
 
 class ScoreSheetBowler(serializers.ModelSerializer):
     id = serializers.IntegerField()
+    handicap = serializers.IntegerField(read_only=True)
+    type = serializers.CharField(read_only=True)
     name = serializers.CharField(source='definition.name', read_only=True)
     games = ScoreSheetGame(many=True)
 
     class Meta:
         model = bowling_models.TeamInstanceBowler
-        fields = ('id', 'name', 'games', )
+        fields = ('id', 'name', 'type', 'handicap', 'games', )
         list_serializer_class = ScoreSheetBowlerListSerializer
 
     def update(self, instance, validated_data):
