@@ -133,6 +133,12 @@ class TeamInstanceBowler(models.Model):
             game = Game(bowler=self, game_number=game_number)
             game.save()
 
+    def update_definition(self, definition, bowler_type=SUBSTITUTE):
+        self.definition = definition
+        self.type = bowler_type
+        self.handicap = definition.handicap
+        self.save()
+
 
 class Match(models.Model):
     """

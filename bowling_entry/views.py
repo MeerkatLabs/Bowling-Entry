@@ -2,6 +2,7 @@ from bowling_entry import models as bowling_models
 from rest_framework import generics, response
 from bowling_entry import serializers as bowling_serializers
 from django.shortcuts import get_object_or_404
+from django.http import Http404
 
 
 class LeagueListCreate(generics.ListCreateAPIView):
@@ -210,6 +211,25 @@ class MatchMixin(WeekMixin):
         obj = get_object_or_404(self.get_match_queryset(), **filter_kwargs)
 
         return obj
+
+
+class MatchTeam(generics.RetrieveUpdateAPIView, MatchMixin):
+    serializer_class = bowling_serializers.MatchTeam
+
+    def get_object(self):
+        match = self.get_match()
+        team_number = int(self.kwargs['pk'])
+        print ' Looking up team %d' % team_number
+
+        if team_number is 1:
+            print 'Returning: 1 %s' % match.team1
+            return match.team1
+        elif team_number is 2:
+            print 'Returning: 2 %s' % match.team2
+            return match.team2
+        else:
+            raise Http404()
+
 
 
 class Self(generics.RetrieveUpdateAPIView):
