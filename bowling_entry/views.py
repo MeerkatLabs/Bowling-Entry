@@ -162,7 +162,7 @@ class MatchList(generics.ListCreateAPIView, WeekMixin):
 
 
 class MatchDetail(generics.RetrieveUpdateDestroyAPIView, WeekMixin):
-    serializer_class = bowling_serializers.ScoreSheet
+    serializer_class = bowling_serializers.Match
 
     def get_queryset(self):
         return self.get_week().matches
@@ -172,6 +172,24 @@ class MatchDetail(generics.RetrieveUpdateDestroyAPIView, WeekMixin):
 
     def get_serializer_context(self):
         context = super(MatchDetail, self).get_serializer_context()
+
+        context['week'] = self.get_week()
+        context['league'] = self.get_league()
+
+        return context
+
+
+class ScoreSheetView(generics.RetrieveUpdateAPIView, WeekMixin):
+    serializer_class = bowling_serializers.ScoreSheet
+
+    def get_queryset(self):
+        return self.get_week().matches.prefetch_related()
+
+    def perform_update(self, serializer):
+        serializer.save(week=self.get_week())
+
+    def get_serializer_context(self):
+        context = super(ScoreSheetView, self).get_serializer_context()
 
         context['week'] = self.get_week()
         context['league'] = self.get_league()
