@@ -44,9 +44,13 @@ class Week(models.Model):
     """
     league = models.ForeignKey(League, related_name='weeks')
     date = models.DateField(blank=False)
+    week_number = models.IntegerField(default=1)
 
     def __unicode__(self):
         return "%s: %s" % (self.league, self.date)
+
+    def get_absolute_url(self):
+        return reverse('bowling_entry_league_week_detail', args=[self.league.pk, self.pk])
 
 
 class TeamDefinition(models.Model):
@@ -58,6 +62,9 @@ class TeamDefinition(models.Model):
 
     def __unicode__(self):
         return "%s: %s" % (self.league, self.name)
+
+    def get_absolute_url(self):
+        return reverse('bowling_entry_league_team_detail', args=[self.league.pk, self.pk])
 
 
 class BowlerDefinition(models.Model):
@@ -83,6 +90,9 @@ class TeamInstance(models.Model):
     definition = models.ForeignKey(TeamDefinition)
     match = models.ForeignKey('Match')
 
+    def define(self):
+        self.define_bowlers()
+
     def define_bowlers(self):
         index = 0
         for bowler in self.definition.bowlers.all():
@@ -90,21 +100,14 @@ class TeamInstance(models.Model):
                                                  type=REGULAR, handicap=bowler.handicap,
                                                  order=index)
             bowler_instance.save()
+            bowler_instance.create_games()
             index += 1
 
-    def bowlers_defined(self):
-        league = self.match.week.league
-
-        return len(self.bowlers) == league.players_per_team
-
-    def create_games(self):
-        definitions = []
-
+    def clear_games(self):
         for bowler in self.bowlers.all():
-            games = bowler.get_or_create_games()
-            definitions.append(dict(bowler=bowler, games=games))
-
-        return definitions
+            for game in bowler.games.all():
+                game.delete()
+            bowler.delete()
 
 
 class TeamInstanceBowler(models.Model):
@@ -121,22 +124,14 @@ class TeamInstanceBowler(models.Model):
         ordering = ['order']
 
     def __unicode__(self):
-        return '%s %s %s' % (self.definition.league, self.team.definition.name, self.definition.name)
+        return '%s %s %s (I)' % (self.definition.league, self.team.definition.name, self.definition.name)
 
-    def get_or_create_games(self):
-        games = self.games.all()
+    def create_games(self):
+        game_count = self.definition.league.number_of_games
 
-        if len(games) == self.definition.league.number_of_games:
-            return games
-
-        games = []
-
-        for game_index in range(0, self.definition.league.number_of_games):
-            game = Game(bowler=self, game_number=game_index+1)
+        for game_number in range(1, game_count+1):
+            game = Game(bowler=self, game_number=game_number)
             game.save()
-            games.append(game)
-
-        return games
 
 
 class Match(models.Model):
@@ -145,25 +140,19 @@ class Match(models.Model):
     """
     week = models.ForeignKey(Week, related_name='matches')
     lanes = models.CommaSeparatedIntegerField(blank=True, max_length=7)
-    games_created = models.BooleanField(blank=False, default=False)
-    teams = models.ManyToManyField(TeamDefinition, through=TeamInstance)
+    team1 = models.ForeignKey(TeamInstance, related_name='+', null=True)
+    team2 = models.ForeignKey(TeamInstance, related_name='+', null=True)
 
     def get_absolute_url(self):
         return reverse('bowling_entry_matchdetails', args=[self.pk])
 
-    def get_games(self):
+    def create_games(self):
+        self.team1.define()
+        self.team2.define()
 
-        results = []
-
-        for team in self.teams.all():
-            team_instance = TeamInstance.objects.get(match=self, definition=team)
-            bowler_games = team_instance.create_games()
-            results.append(dict(team=team, bowlers=bowler_games))
-
-        self.games_created = True
-        self.save()
-
-        return results
+    def clear_games(self):
+        self.team1.clear_games()
+        self.team2.clear_games()
 
 
 class Game(models.Model):
@@ -172,85 +161,14 @@ class Game(models.Model):
     """
     bowler = models.ForeignKey(TeamInstanceBowler, blank=False, null=False, related_name='games')
     game_number = models.IntegerField(blank=False)
-    frame01 = models.CommaSeparatedIntegerField(max_length=4, blank=True)
-    frame02 = models.CommaSeparatedIntegerField(max_length=4, blank=True)
-    frame03 = models.CommaSeparatedIntegerField(max_length=4, blank=True)
-    frame04 = models.CommaSeparatedIntegerField(max_length=4, blank=True)
-    frame05 = models.CommaSeparatedIntegerField(max_length=4, blank=True)
-    frame06 = models.CommaSeparatedIntegerField(max_length=4, blank=True)
-    frame07 = models.CommaSeparatedIntegerField(max_length=4, blank=True)
-    frame08 = models.CommaSeparatedIntegerField(max_length=4, blank=True)
-    frame09 = models.CommaSeparatedIntegerField(max_length=4, blank=True)
-    frame10 = models.CommaSeparatedIntegerField(max_length=8, blank=True)
-    splits = models.CommaSeparatedIntegerField(max_length=30, blank=True)
+    total = models.IntegerField(blank=False, default=0)
 
-    def get_frame(self, frame_id):
-        if frame_id == 1:
-            return self.frame01
-        elif frame_id == 2:
-            return self.frame02
-        elif frame_id == 3:
-            return self.frame03
-        elif frame_id == 4:
-            return self.frame04
-        elif frame_id == 5:
-            return self.frame05
-        elif frame_id == 6:
-            return self.frame06
-        elif frame_id == 7:
-            return self.frame07
-        elif frame_id == 8:
-            return self.frame08
-        elif frame_id == 9:
-            return self.frame09
-        elif frame_id == 10:
-            return self.frame10
-        else:
-            return ''
 
-    def set_frame(self, frame_id, score):
-        if frame_id == 1:
-            self.frame01 = score
-        elif frame_id == 2:
-            self.frame02 = score
-        elif frame_id == 3:
-            self.frame03 = score
-        elif frame_id == 4:
-            self.frame04 = score
-        elif frame_id == 5:
-            self.frame05 = score
-        elif frame_id == 6:
-            self.frame06 = score
-        elif frame_id == 7:
-            self.frame07 = score
-        elif frame_id == 8:
-            self.frame08 = score
-        elif frame_id == 9:
-            self.frame09 = score
-        elif frame_id == 10:
-            self.frame10 = score
+class Frame(models.Model):
+    game = models.ForeignKey(Game, related_name='frames')
+    frame_number = models.IntegerField(blank=False)
+    throws = models.CommaSeparatedIntegerField(max_length=10, blank=False)
+    splits = models.CommaSeparatedIntegerField(max_length=10, blank=True)
 
-    def set_split(self, frame_id, is_split):
-        if self.splits:
-            splits = {int(a) for a in self.splits.split(',')}
-        else:
-            splits = set()
-
-        if is_split:
-            splits.add(frame_id)
-        elif frame_id in splits:
-            splits.remove(frame_id)
-
-        self.splits = ','.join([str(a) for a in splits])
-
-    def is_split(self, frame_id):
-        return frame_id in self.get_splits()
-
-    def get_splits(self):
-        if self.splits:
-            splits = {int(a) for a in self.splits.split(',')}
-        else:
-            splits = set()
-
-        return splits
-
+    class Meta:
+        ordering = ['frame_number', ]

@@ -8,6 +8,9 @@ class LeagueListCreate(generics.ListCreateAPIView):
     queryset = bowling_models.League.objects.all()
     serializer_class = bowling_serializers.League
 
+    def perform_create(self, serializer):
+        serializer.save(secretary=self.request.user)
+
 
 class LeagueDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = bowling_models.League.objects.all()
@@ -72,12 +75,13 @@ class TeamMixin(LeagueMixin):
 
 class TeamBowlerDefinitionListCreate(generics.ListCreateAPIView, TeamMixin):
     serializer_class = bowling_serializers.TeamBowlerDefinition
+    team_url_kwarg = 'pk'
 
     def get_queryset(self):
-        return bowling_models.BowlerDefinition.objects.filter(team=self.get_league())
+        return bowling_models.BowlerDefinition.objects.filter(team=self.get_team())
 
     def perform_create(self, serializer):
-        serializer.save(team=self.get_team(), league=self.get_team())
+        serializer.save(team=self.get_team(), league=self.get_league())
 
 
 class TeamBowlerDefinitionDetail(generics.RetrieveUpdateDestroyAPIView, TeamMixin):
@@ -142,33 +146,37 @@ class WeekMixin(LeagueMixin):
         return obj
 
 
-class MatchList(generics.ListAPIView, WeekMixin):
+class MatchList(generics.ListCreateAPIView, WeekMixin):
     serializer_class = bowling_serializers.Match
 
     def get_queryset(self):
         return self.get_week().matches
 
+    def get_serializer_context(self):
+        context = super(MatchList, self).get_serializer_context()
 
-class MatchCreate(generics.CreateAPIView, WeekMixin):
-    serializer_class = bowling_serializers.MatchCreate
+        context['week'] = self.get_week()
+        context['league'] = self.get_league()
 
-    def get_serializer(self, *args, **kwargs):
-        serializer = super(MatchCreate, self).get_serializer(instance={'week': self.get_week(),
-                                                                       'lane01': 0,
-                                                                       'lane02': 0,
-                                                                       'team01': None,
-                                                                       'team02': None}, *args, **kwargs)
-        return serializer
+        return context
 
 
 class MatchDetail(generics.RetrieveUpdateDestroyAPIView, WeekMixin):
-    serializer_class = bowling_serializers.Match
+    serializer_class = bowling_serializers.ScoreSheet
 
     def get_queryset(self):
         return self.get_week().matches
 
     def perform_update(self, serializer):
         serializer.save(week=self.get_week())
+
+    def get_serializer_context(self):
+        context = super(MatchDetail, self).get_serializer_context()
+
+        context['week'] = self.get_week()
+        context['league'] = self.get_league()
+
+        return context
 
 
 class MatchMixin(WeekMixin):
@@ -184,52 +192,6 @@ class MatchMixin(WeekMixin):
         obj = get_object_or_404(self.get_match_queryset(), **filter_kwargs)
 
         return obj
-
-
-class MatchTeamDetail(generics.RetrieveUpdateDestroyAPIView, MatchMixin, TeamMixin):
-    serializer_class = bowling_serializers.TeamInstance
-    team_url_kwarg = 'pk'
-
-    def get_queryset(self):
-        return bowling_models.TeamInstance.objects.filter(match=self.get_match())
-
-    def get_object(self):
-        object = self.get_queryset().get(definition=self.get_team())
-
-        print '%s' % object
-        return object
-
-    def perform_update(self, serializer):
-        serializer.save(week=self.get_week())
-
-
-class MatchTeamBowlerDetail(generics.RetrieveUpdateDestroyAPIView, MatchMixin, TeamMixin):
-    serializer_class = bowling_serializers.TeamBowlerInstance
-
-    def get_team_instance(self):
-        team_instance = bowling_models.TeamInstance.objects.get(match=self.get_match(), definition=self.get_team())
-        print '%s' % team_instance
-        return team_instance
-
-    def get_queryset(self):
-        return self.get_team_instance().bowlers.all()
-
-    def perform_update(self, serializer):
-        serializer.save(team=self.get_team_instance())
-
-
-class CreateGames(generics.ListAPIView, MatchMixin):
-    serializer_class = bowling_serializers.MatchGames
-
-    def list(self, request, *args, **kwargs):
-        match = self.get_match()
-        instance = match.get_games()
-
-        print 'instance %s' % instance
-
-        serializer = self.get_serializer(instance, many=True)
-
-        return response.Response(serializer.data)
 
 
 class Self(generics.RetrieveUpdateAPIView):
