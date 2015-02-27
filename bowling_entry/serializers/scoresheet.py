@@ -49,6 +49,10 @@ class ScoreSheetGameListSerializer(serializers.ListSerializer):
 
         return ret
 
+    def get_attribute(self, instance):
+        result = super(ScoreSheetGameListSerializer, self).get_attribute(instance)
+        return result.prefetch_related('frames')
+
 
 class ScoreSheetGame(serializers.ModelSerializer):
     game_number = serializers.IntegerField()
@@ -85,6 +89,10 @@ class ScoreSheetGame(serializers.ModelSerializer):
 
         return instance
 
+    def get_attribute(self, instance):
+        result = super(ScoreSheetGame, self).get_attribute(instance)
+        return result.prefetch_related('frames')
+
 
 class ScoreSheetBowlerListSerializer(serializers.ListSerializer):
 
@@ -100,6 +108,10 @@ class ScoreSheetBowlerListSerializer(serializers.ListSerializer):
                 ret.append(result)
 
         return ret
+
+    def get_attribute(self, instance):
+        result = super(ScoreSheetBowlerListSerializer, self).get_attribute(instance)
+        return result.prefetch_related('games')
 
 
 class ScoreSheetBowler(serializers.ModelSerializer):
