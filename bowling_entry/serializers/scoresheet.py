@@ -8,7 +8,7 @@ class ScoreSheetFrameListSerializer(serializers.ListSerializer):
         ret = []
 
         for frame_data in validated_data:
-            frame = instance.get(frame_number=frame_data.get('frame_number'))
+            frame, created = instance.get_or_create(frame_number=frame_data.get('frame_number'), defaults={'throws': ''})
             result = self.child.update(frame, frame_data)
 
             if result is not None:
@@ -25,7 +25,14 @@ class ScoreSheetFrame(serializers.ModelSerializer):
         list_serializer_class = ScoreSheetFrameListSerializer
 
     def update(self, instance, validated_data):
-        return None
+
+        print '%s' % validated_data
+        print '%s' % instance
+
+        instance.throws = validated_data.get('throws')
+        instance.save()
+
+        return instance
 
 
 class ScoreSheetGameListSerializer(serializers.ListSerializer):
@@ -72,6 +79,9 @@ class ScoreSheetGame(serializers.ModelSerializer):
         instance.save()
 
         ## TODO: Update the split and frame values.
+        frame_data = validated_data.get('frames')
+        if frame_data is not None:
+            self.fields['frames'].update(instance.frames, frame_data)
 
         return instance
 
