@@ -274,6 +274,11 @@ class ScoreSheetView(generics.RetrieveUpdateAPIView, mixins.WeekMixin):
         self.week = self.get_week()
         return super(ScoreSheetView, self).retrieve(request, *args, **kwargs)
 
+    def update(self, request, *args, **kwargs):
+        self.league = self.get_league()
+        self.week = self.get_week()
+        return super(ScoreSheetView, self).update(request, *args, **kwargs)
+
     def get_queryset(self):
         return self.week.matches.select_related('team1', 'team2')
 
