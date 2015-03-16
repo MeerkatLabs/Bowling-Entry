@@ -94,7 +94,16 @@ class TeamInstance(models.Model):
         self.define_bowlers()
 
     def define_bowlers(self):
+        """
+        Define all of the bowlers to be associated with this team.  Iterates through the team definition for this
+        instance.  Fills in vacant bowlers if there are not enough bowlers available.
+        """
         index = 0
+        league = self.match.week.league
+
+        max_bowlers = league.players_per_team
+
+        # Assume the bowler definition based on the team definition values.
         for bowler in self.definition.bowlers.all():
             bowler_instance = TeamInstanceBowler(definition=bowler, team=self,
                                                  type=REGULAR, handicap=bowler.handicap,
@@ -102,6 +111,17 @@ class TeamInstance(models.Model):
             bowler_instance.save()
             bowler_instance.create_games()
             index += 1
+
+            # Break out of the loop if the maximum number of bowlers has been reached.
+            if index >= max_bowlers:
+                break
+
+        # Create the vacant bowlers
+        for vacant_index in range(index, max_bowlers):
+            bowler_instance = TeamInstanceBowler(definition=None, team=self,
+                                                 type=VACANT, order=vacant_index)
+            bowler_instance.save()
+            bowler_instance.create_games()
 
     def clear_games(self):
         for bowler in self.bowlers.all():
@@ -114,7 +134,7 @@ class TeamInstanceBowler(models.Model):
     """
     The instance of a bowler that is bowling on a given week
     """
-    definition = models.ForeignKey(BowlerDefinition)
+    definition = models.ForeignKey(BowlerDefinition, null=True)
     team = models.ForeignKey(TeamInstance, related_name='bowlers')
     type = models.CharField(max_length=10, blank=False, choices=BOWLER_TYPE_CHOICES, default=REGULAR)
     handicap = models.IntegerField(blank=True, null=True)
