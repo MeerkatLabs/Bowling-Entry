@@ -76,89 +76,6 @@ class Substitute(serializers.ModelSerializer):
         fields = ('id', 'name', 'handicap', 'league', )
 
 
-class MatchCreate(serializers.Serializer):
-    week = serializers.PrimaryKeyRelatedField(read_only=True)
-    lane01 = serializers.IntegerField(required=True)
-    lane02 = serializers.IntegerField(required=True)
-    team01 = serializers.PrimaryKeyRelatedField(queryset=bowling_models.TeamDefinition.objects.all())
-    team02 = serializers.PrimaryKeyRelatedField(queryset=bowling_models.TeamDefinition.objects.all())
-
-    def create(self, validated_data):
-        print 'Validated_data %s' % validated_data
-
-        lanes = '%s,%s' % (validated_data.get('lane01'), validated_data.get('lane02'))
-        match = bowling_models.Match(week=validated_data.get('week'), lanes=lanes)
-        match.save()
-
-        team01 = validated_data['team01']
-        team01_instance = bowling_models.TeamInstance(definition=team01, match=match)
-        team01_instance.save()
-        team01_instance.define_bowlers()
-
-        team02_instance = validated_data['team02']
-        team02_instance = bowling_models.TeamInstance(definition=team02_instance, match=match)
-        team02_instance.save()
-        team02_instance.define_bowlers()
-
-        return dict(week=validated_data.get('week'),
-                    lane01=validated_data.get('lane01'),
-                    lane02=validated_data.get('lane02'),
-                    team01=validated_data.get('team01'),
-                    team02=validated_data.get('team02'))
-
-    def update(self, instance, validated_data):
-
-        week = instance.get('week')
-
-        lanes = '%s,%s' % (validated_data.get('lane01'), validated_data.get('lane02'))
-        match = bowling_models.Match(week=week, lanes=lanes)
-        match.save()
-
-        team01 = validated_data['team01']
-        team01_instance = bowling_models.TeamInstance(definition=team01, match=match)
-        team01_instance.save()
-        team01_instance.define_bowlers()
-
-        team02_instance = validated_data['team02']
-        team02_instance = bowling_models.TeamInstance(definition=team02_instance, match=match)
-        team02_instance.save()
-        team02_instance.define_bowlers()
-
-        return dict(week=instance.get('week'),
-                    lane01=validated_data.get('lane01'),
-                    lane02=validated_data.get('lane02'),
-                    team01=validated_data.get('team01'),
-                    team02=validated_data.get('team02'))
-
-    def validate(self, data):
-        print '%s' % self.instance
-
-        week = self.instance.get('week')
-
-        league = week.league
-
-        team01 = data.get('team01')
-        team02 = data.get('team02')
-
-        if team01.league.pk != league.pk:
-            raise serializers.ValidationError('Team 1 is not a part of the same league as the week')
-        elif team02.league.pk != league.pk:
-            raise serializers.ValidationError('Team 2 is not a part of the same league as the week')
-        elif team01 == team02:
-            raise serializers.ValidationError('The same team cannot play against each other')
-        elif data.get('lane01') != data.get('lane02') - 1:
-            raise serializers.ValidationError('The lanes are not next to each other')
-
-        for match in week.matches.all():
-            for team in match.teams.all():
-                if team == team01:
-                    raise serializers.ValidationError('%s already has a match the week of %s' % (team01, week))
-                elif team == team02:
-                    raise serializers.ValidationError('%s already has a match the week of %s' % (team01, week))
-
-        return data
-
-
 class TeamInstanceBowlerInstanceListSerializer(serializers.ListSerializer):
 
     def update(self, instance, validated_data):
@@ -216,7 +133,6 @@ class MatchTeam(serializers.ModelSerializer):
         self.fields['bowlers'].update(instance.bowlers.all(), validated_data.get('bowlers'))
 
         return instance
-
 
 
 class Match(serializers.ModelSerializer):
@@ -319,9 +235,9 @@ class Match(serializers.ModelSerializer):
             elif match.team2.definition.pk == team01.pk:
                 raise serializers.ValidationError('%s already has a match the week of %s' % (team01, week))
             elif match.team1.definition.pk == team02.pk:
-                raise serializers.ValidationError('%s already has a match the week of %s' % (team01, week))
+                raise serializers.ValidationError('%s already has a match the week of %s' % (team02, week))
             elif match.team2.definition.pk == team02.pk:
-                raise serializers.ValidationError('%s already has a match the week of %s' % (team01, week))
+                raise serializers.ValidationError('%s already has a match the week of %s' % (team02, week))
 
         return data
 

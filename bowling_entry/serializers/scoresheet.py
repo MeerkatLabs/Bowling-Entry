@@ -8,7 +8,8 @@ class ScoreSheetFrameListSerializer(serializers.ListSerializer):
         ret = []
 
         for frame_data in validated_data:
-            frame, created = instance.get_or_create(frame_number=frame_data.get('frame_number'), defaults={'throws': ''})
+            frame, created = instance.get_or_create(frame_number=frame_data.get('frame_number'),
+                                                    defaults={'throws': ''})
             result = self.child.update(frame, frame_data)
 
             if result is not None:
@@ -34,6 +35,14 @@ class ScoreSheetFrame(serializers.ModelSerializer):
 
         return instance
 
+    def validate(self, attrs):
+        # frame_number must be provided, same with throws
+        if attrs.get('frame_number') is None:
+            raise serializers.ValidationError('frame_number must be provided')
+        elif attrs.get('throws') is None:
+            raise serializers.ValidationError('throws must be provided')
+        return attrs
+
 
 class ScoreSheetGameListSerializer(serializers.ListSerializer):
 
@@ -56,9 +65,9 @@ class ScoreSheetGameListSerializer(serializers.ListSerializer):
 
 class ScoreSheetGame(serializers.ModelSerializer):
     game_number = serializers.IntegerField()
-    total = serializers.IntegerField(required=False)
-    frames = ScoreSheetFrame(many=True, required=False)
-    splits = serializers.SerializerMethodField(required=False)
+    total = serializers.IntegerField()
+    frames = ScoreSheetFrame(many=True)
+    splits = serializers.SerializerMethodField()
 
     class Meta:
         model = bowling_models.Game
@@ -76,22 +85,24 @@ class ScoreSheetGame(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
 
-        ## Only fields that we are going to update are the totals
+        # Only fields that we are going to update are the totals
         total_value = validated_data.get('total')
         if total_value is not None:
             instance.total = total_value
         instance.save()
 
-        ## TODO: Update the split and frame values.
+        # TODO: Update the split and frame values.
         frame_data = validated_data.get('frames')
         if frame_data is not None:
             self.fields['frames'].update(instance.frames, frame_data)
 
         return instance
 
-    def get_attribute(self, instance):
-        result = super(ScoreSheetGame, self).get_attribute(instance)
-        return result.prefetch_related('frames')
+    def validate(self, attrs):
+        # game_number must always be provided
+        if attrs.get('game_number') is None:
+            raise serializers.ValidationError('game_number must be provided')
+        return attrs
 
 
 class ScoreSheetBowlerListSerializer(serializers.ListSerializer):
@@ -116,15 +127,17 @@ class ScoreSheetBowlerListSerializer(serializers.ListSerializer):
 
 class ScoreSheetBowler(serializers.ModelSerializer):
     id = serializers.IntegerField()
+    definition = serializers.PrimaryKeyRelatedField(queryset=bowling_models.BowlerDefinition.objects)
     handicap = serializers.IntegerField(read_only=True)
-    type = serializers.CharField(read_only=True)
+    average = serializers.IntegerField(read_only=True)
+    type = serializers.CharField()
     name = serializers.CharField(source='definition.name', read_only=True)
     games = ScoreSheetGame(many=True)
     total = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = bowling_models.TeamInstanceBowler
-        fields = ('id', 'name', 'type', 'handicap', 'games', 'total', )
+        fields = ('id', 'definition', 'name', 'type', 'handicap', 'average', 'games', 'total', )
         list_serializer_class = ScoreSheetBowlerListSerializer
 
     def update(self, instance, validated_data):
@@ -132,25 +145,52 @@ class ScoreSheetBowler(serializers.ModelSerializer):
         # instead do want to update the games.
 
         games = validated_data.get('games')
-        self.fields['games'].update(instance.games, games)
+        if games is not None:
+            self.fields['games'].update(instance.games, games)
+
+        definition = validated_data.get('definition')
+        type = validated_data.get('type')
+        if definition is not None and type is not None:
+            instance.update_definition(definition, type)
 
         return instance
 
-    def get_total(self, object):
+    def get_total(self, bowler):
         total = 0
-        for game in object.games.all():
+        for game in bowler.games.all():
             total += game.total
 
         return total
+
+    def validate_definition(self, value):
+        # definition object must either be a member of the team or a league substitute
+        print 'validating definition'
+        return value
+
+    def validate(self, attrs):
+        # id must always be present
+        if attrs.get('id') is None:
+            raise serializers.ValidationError("Bowler Id must always be present")
+
+        print '%s' % attrs
+
+        # definition and bowler type must be defined together
+        if attrs.get('definition') is not None and attrs.get('type') is None:
+            raise serializers.ValidationError('Bowler definition and type must be present together (type missing)')
+        elif attrs.get('type') is not None and attrs.get('definition') is None:
+            raise serializers.ValidationError('Bowler definition and type must be present together (definition missing)')
+
+        return attrs
 
 
 class ScoreSheetTeam(serializers.ModelSerializer):
     name = serializers.CharField(source='definition.name', read_only=True)
     bowlers = ScoreSheetBowler(many=True)
+    definition_id = serializers.PrimaryKeyRelatedField(source='definition.id', read_only=True)
 
     class Meta:
         model = bowling_models.TeamInstance
-        fields = ('id', 'name', 'bowlers', )
+        fields = ('id', 'name', 'bowlers', 'definition_id', )
 
     def update(self, instance, validated_data):
 
@@ -162,8 +202,8 @@ class ScoreSheetTeam(serializers.ModelSerializer):
 
 
 class ScoreSheet(serializers.ModelSerializer):
-    team1 = ScoreSheetTeam(required=False)
-    team2 = ScoreSheetTeam(required=False)
+    team1 = ScoreSheetTeam()
+    team2 = ScoreSheetTeam()
 
     class Meta:
         model = bowling_models.Match
@@ -182,7 +222,3 @@ class ScoreSheet(serializers.ModelSerializer):
             self.fields['team2'].update(instance.team2, team2_definition)
 
         return instance
-
-    def validate(self, attrs):
-        return attrs
-

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+import datetime
 
 # Create your models here.
 
@@ -22,7 +23,7 @@ class League(models.Model):
     """
     secretary = models.ForeignKey(User, related_name='leagues')
     name = models.CharField(max_length=100)
-    start_date = models.DateField()
+    start_date = models.DateField(default=datetime.date.today)
     number_of_weeks = models.IntegerField(blank=False, default=10)
     number_of_games = models.IntegerField(blank=False, default=3)
     players_per_team = models.IntegerField(blank=False, default=4)
@@ -72,6 +73,7 @@ class BowlerDefinition(models.Model):
     Definition of a bowler that will participate in the league.
     """
     name = models.CharField(max_length=100)
+    average = models.IntegerField(blank=True, null=True)
     handicap = models.IntegerField(blank=True, null=True)
     league = models.ForeignKey(League, related_name='bowlers', null=False, blank=False)
     team = models.ForeignKey(TeamDefinition, related_name='bowlers', blank=True, null=True)
@@ -137,6 +139,7 @@ class TeamInstanceBowler(models.Model):
     definition = models.ForeignKey(BowlerDefinition, null=True)
     team = models.ForeignKey(TeamInstance, related_name='bowlers')
     type = models.CharField(max_length=10, blank=False, choices=BOWLER_TYPE_CHOICES, default=REGULAR)
+    average = models.IntegerField(blank=True, null=True)
     handicap = models.IntegerField(blank=True, null=True)
     order = models.IntegerField(blank=False)
 
@@ -157,6 +160,7 @@ class TeamInstanceBowler(models.Model):
         self.definition = definition
         self.type = bowler_type
         self.handicap = definition.handicap
+        self.average = definition.average
         self.save()
 
 

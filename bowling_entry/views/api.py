@@ -237,7 +237,7 @@ class MatchList(generics.ListCreateAPIView, mixins.WeekMixin):
 
 
 class MatchDetail(generics.RetrieveUpdateDestroyAPIView, mixins.WeekMixin):
-    serializer_class = bowling_serializers.Match
+    serializer_class = bowling_serializers.ScoreSheet
 
     def retrieve(self, request, *args, **kwargs):
         self.league = self.get_league()
@@ -255,38 +255,13 @@ class MatchDetail(generics.RetrieveUpdateDestroyAPIView, mixins.WeekMixin):
         return super(MatchDetail, self).destroy(request, *args, **kwargs)
 
     def get_queryset(self):
-        return self.week.matches
-
-    def perform_update(self, serializer):
-        serializer.save(week=self.week)
-
-    def get_serializer_context(self):
-        context = super(MatchDetail, self).get_serializer_context()
-        self.append_bowling_context(context)
-        return context
-
-
-class ScoreSheetView(generics.RetrieveUpdateAPIView, mixins.WeekMixin):
-    serializer_class = bowling_serializers.ScoreSheet
-
-    def retrieve(self, request, *args, **kwargs):
-        self.league = self.get_league()
-        self.week = self.get_week()
-        return super(ScoreSheetView, self).retrieve(request, *args, **kwargs)
-
-    def update(self, request, *args, **kwargs):
-        self.league = self.get_league()
-        self.week = self.get_week()
-        return super(ScoreSheetView, self).update(request, *args, **kwargs)
-
-    def get_queryset(self):
         return self.week.matches.select_related('team1', 'team2')
 
     def perform_update(self, serializer):
         serializer.save(week=self.week)
 
     def get_serializer_context(self):
-        context = super(ScoreSheetView, self).get_serializer_context()
+        context = super(MatchDetail, self).get_serializer_context()
         self.append_bowling_context(context)
         return context
 
