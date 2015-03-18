@@ -227,7 +227,7 @@ class MatchList(generics.ListCreateAPIView, mixins.WeekMixin):
         return super(MatchList, self).list(request, *args, **kwargs)
 
     def get_queryset(self):
-        return self.week.matches
+        return self.week.matches.prefetch_related('team1__definition', 'team2__definition')
 
     def get_serializer_context(self):
         context = super(MatchList, self).get_serializer_context()

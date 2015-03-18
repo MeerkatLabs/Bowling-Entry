@@ -58,10 +58,6 @@ class ScoreSheetGameListSerializer(serializers.ListSerializer):
 
         return ret
 
-    def get_attribute(self, instance):
-        result = super(ScoreSheetGameListSerializer, self).get_attribute(instance)
-        return result.prefetch_related('frames')
-
 
 class ScoreSheetGame(serializers.ModelSerializer):
     game_number = serializers.IntegerField()
@@ -122,7 +118,7 @@ class ScoreSheetBowlerListSerializer(serializers.ListSerializer):
 
     def get_attribute(self, instance):
         result = super(ScoreSheetBowlerListSerializer, self).get_attribute(instance)
-        return result.prefetch_related('games')
+        return result.prefetch_related('games__frames').select_related('definition')
 
 
 class ScoreSheetBowler(serializers.ModelSerializer):
@@ -184,13 +180,13 @@ class ScoreSheetBowler(serializers.ModelSerializer):
 
 
 class ScoreSheetTeam(serializers.ModelSerializer):
+    id = serializers.PrimaryKeyRelatedField(source='definition.id', read_only=True)
     name = serializers.CharField(source='definition.name', read_only=True)
     bowlers = ScoreSheetBowler(many=True)
-    definition_id = serializers.PrimaryKeyRelatedField(source='definition.id', read_only=True)
 
     class Meta:
         model = bowling_models.TeamInstance
-        fields = ('id', 'name', 'bowlers', 'definition_id', )
+        fields = ('id', 'name', 'bowlers', )
 
     def update(self, instance, validated_data):
 
