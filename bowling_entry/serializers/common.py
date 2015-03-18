@@ -22,7 +22,7 @@ class LeagueWeeks(serializers.ModelSerializer):
 
     class Meta:
         model = bowling_models.Week
-        fields = ('id', 'date', 'url', )
+        fields = ('week_number', 'date', 'url', )
 
 
 class League(serializers.ModelSerializer):
