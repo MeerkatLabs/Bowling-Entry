@@ -11,8 +11,6 @@ class LeagueCreationTest(TestCase):
         user = auth_models.User.objects.create_user(username='example', password='example', email='example@example.com')
         league = bowling_models.League.objects.create(secretary=user, name='Bowling League')
 
-        league.update_weeks()
-
         self.assertEqual(len(league.weeks.all()), league.number_of_weeks)
         self.assertEqual(league.weeks.first().week_number, 1)
         self.assertEqual(league.weeks.last().week_number, league.number_of_weeks)
@@ -30,13 +28,10 @@ class LeagueCreationTest(TestCase):
         user = auth_models.User.objects.create_user(username='example', password='example', email='example@example.com')
         league = bowling_models.League.objects.create(secretary=user, name='Bowling League')
 
-        league.update_weeks()
-
         # Initial starting point.
         league.number_of_weeks += 5
         league.save()
 
-        league.update_weeks()
         self.assertEqual(len(league.weeks.all()), league.number_of_weeks)
         self.assertEqual(league.weeks.first().week_number, 1)
         self.assertEqual(league.weeks.last().week_number, league.number_of_weeks)
@@ -54,13 +49,10 @@ class LeagueCreationTest(TestCase):
         user = auth_models.User.objects.create_user(username='example', password='example', email='example@example.com')
         league = bowling_models.League.objects.create(secretary=user, name='Bowling League')
 
-        league.update_weeks()
-
         # Initial starting point.
         league.number_of_weeks -= 5
         league.save()
 
-        league.update_weeks()
         self.assertEqual(len(league.weeks.all()), league.number_of_weeks)
         self.assertEqual(league.weeks.first().week_number, 1)
         self.assertEqual(league.weeks.last().week_number, league.number_of_weeks)

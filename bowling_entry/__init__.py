@@ -1,0 +1,1 @@
+default_app_config = 'bowling_entry.apps.BowlingEntryApp'
