@@ -111,12 +111,11 @@ class TeamInstanceBowlerInstance(serializers.ModelSerializer):
 
 class TeamInstance(serializers.ModelSerializer):
     name = serializers.CharField(source='definition.name')
-    bowlers = TeamInstanceBowlerInstance(many=True, read_only=True)
-    definition_id = serializers.PrimaryKeyRelatedField(source='definition.id', read_only=True)
+    id = serializers.PrimaryKeyRelatedField(source='definition.id', read_only=True)
 
     class Meta:
         model = bowling_models.TeamInstance
-        fields = ('id', 'name', 'bowlers', 'definition_id', )
+        fields = ('id', 'name', )
 
 
 class MatchTeam(serializers.ModelSerializer):
