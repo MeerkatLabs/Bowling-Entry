@@ -9,12 +9,17 @@ class LeagueListCreate(generics.ListCreateAPIView):
     serializer_class = bowling_serializers.LeagueList
 
     def perform_create(self, serializer):
-        serializer.save(secretary=self.request.user)
+        league = serializer.save(secretary=self.request.user)
+        league.update_weeks()
 
 
 class LeagueDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = bowling_models.League.objects.prefetch_related('teams', 'weeks')
     serializer_class = bowling_serializers.League
+
+    def perform_update(self, serializer):
+        league = serializer.save()
+        league.update_weeks()
 
 
 class TeamDefinitionListCreate(generics.ListCreateAPIView, mixins.LeagueMixin):

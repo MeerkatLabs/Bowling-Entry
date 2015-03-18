@@ -41,6 +41,30 @@ class League(models.Model):
     def substitutes(self):
         return self.bowlers.filter(team=None)
 
+    def update_weeks(self):
+        """
+        Add or remove weeks from the league object.
+        """
+
+        current_week_count = len(self.weeks.all())
+        if current_week_count != self.number_of_weeks:
+            difference = self.number_of_weeks - current_week_count
+            if difference > 0:
+                delta = datetime.timedelta(days=7)
+                date = self.start_date
+                if current_week_count:
+                    last_week = self.weeks.last()
+                    date = last_week.date + delta
+
+                current_week_count += 1
+
+                for week_number in range(current_week_count, self.number_of_weeks+1):
+                    Week.objects.create(week_number=week_number, date=date, league=self)
+                    date += delta
+            else:
+                # Need to delete weeks from week number higher
+                self.weeks.filter(week_number__gt=self.number_of_weeks).delete()
+
 
 class Week(models.Model):
     """
