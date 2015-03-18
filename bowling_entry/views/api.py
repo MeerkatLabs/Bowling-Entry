@@ -175,7 +175,7 @@ class WeekCreateList(generics.ListCreateAPIView, mixins.LeagueMixin):
         return super(WeekCreateList, self).create(request, *args, **kwargs)
 
     def get_queryset(self):
-        return self.league.weeks
+        return self.league.weeks.prefetch_related('matches')
 
     def perform_create(self, serializer):
         serializer.save(league=self.league)
