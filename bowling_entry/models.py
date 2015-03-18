@@ -32,6 +32,9 @@ class League(models.Model):
     handicap_max = models.IntegerField(blank=False, default=210)
     handicap_percentage = models.IntegerField(blank=False, default=90)
 
+    class Meta:
+        ordering = ['start_date', 'name', ]
+
     def __unicode__(self):
         return self.name
 
@@ -47,11 +50,15 @@ class Week(models.Model):
     date = models.DateField(blank=False)
     week_number = models.IntegerField(default=1)
 
+    class Meta:
+        unique_together = (('league', 'week_number'),)
+        ordering = ['date', ]
+
     def __unicode__(self):
         return "%s: %s" % (self.league, self.date)
 
     def get_absolute_url(self):
-        return reverse('bowling_entry_league_week_detail', args=[self.league.pk, self.pk])
+        return reverse('bowling_entry_league_week_detail', args=[self.league.pk, self.week_number])
 
 
 class TeamDefinition(models.Model):

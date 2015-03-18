@@ -5,8 +5,8 @@ from bowling_entry.views import mixins
 
 
 class LeagueListCreate(generics.ListCreateAPIView):
-    queryset = bowling_models.League.objects.prefetch_related('teams', 'weeks')
-    serializer_class = bowling_serializers.League
+    queryset = bowling_models.League.objects
+    serializer_class = bowling_serializers.LeagueList
 
     def perform_create(self, serializer):
         serializer.save(secretary=self.request.user)
@@ -188,6 +188,7 @@ class WeekCreateList(generics.ListCreateAPIView, mixins.LeagueMixin):
 
 class WeekDetail(generics.RetrieveUpdateDestroyAPIView, mixins.LeagueMixin):
     serializer_class = bowling_serializers.Week
+    lookup_field = 'week_number'
 
     def retrieve(self, request, *args, **kwargs):
         self.league = self.get_league()

@@ -53,8 +53,8 @@ class TeamMixin(LeagueMixin):
 
 
 class WeekMixin(LeagueMixin):
-    week_url_kwarg = 'week_pk'
-    week_lookup_field = 'pk'
+    week_url_kwarg = 'week_number'
+    week_lookup_field = 'week_number'
     week_queryset = bowling_models.League.objects
     week = None
 

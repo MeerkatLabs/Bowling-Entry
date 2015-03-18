@@ -6,8 +6,8 @@ from django.contrib.auth import models as auth_models
 class LeagueTeams(serializers.ModelSerializer):
     url = serializers.SerializerMethodField()
 
-    def get_url(self, object):
-        return self.context['request'].build_absolute_uri(object.get_absolute_url())
+    def get_url(self, instance):
+        return self.context['request'].build_absolute_uri(instance.get_absolute_url())
 
     class Meta:
         model = bowling_models.TeamDefinition
@@ -17,8 +17,8 @@ class LeagueTeams(serializers.ModelSerializer):
 class LeagueWeeks(serializers.ModelSerializer):
     url = serializers.SerializerMethodField()
 
-    def get_url(self, object):
-        return self.context['request'].build_absolute_uri(object.get_absolute_url())
+    def get_url(self, instance):
+        return self.context['request'].build_absolute_uri(instance.get_absolute_url())
 
     class Meta:
         model = bowling_models.Week
@@ -35,12 +35,27 @@ class League(serializers.ModelSerializer):
                   'points_per_game', 'points_for_totals', 'handicap_max', 'handicap_percentage', 'teams', 'weeks')
 
 
+class LeagueList(serializers.ModelSerializer):
+
+    class Meta:
+        model = bowling_models.League
+        fields = ('id', 'name', 'start_date', 'number_of_weeks', 'number_of_games', 'players_per_team',
+                  'points_per_game', 'points_for_totals', 'handicap_max', 'handicap_percentage')
+        extra_kwargs = {'number_of_weeks': {'write_only': True},
+                        'number_of_games': {'write_only': True},
+                        'players_per_team': {'write_only': True},
+                        'points_per_game': {'write_only': True},
+                        'points_for_totals': {'write_only': True},
+                        'handicap_max': {'write_only': True},
+                        'handicap_percentage': {'write_only': True}}
+
+
 class Week(serializers.ModelSerializer):
     matches = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = bowling_models.Week
-        fields = ('id', 'week_number', 'date', 'matches', )
+        fields = ('week_number', 'date', 'matches', )
 
 
 class TeamBowlerDefinition(serializers.ModelSerializer):
@@ -86,7 +101,6 @@ class TeamInstance(serializers.ModelSerializer):
 
 
 class Match(serializers.ModelSerializer):
-    week = serializers.PrimaryKeyRelatedField(read_only=True)
     team1 = TeamInstance(read_only=True)
     team2 = TeamInstance(read_only=True)
     team1_definition = serializers.PrimaryKeyRelatedField(write_only=True,
@@ -98,7 +112,7 @@ class Match(serializers.ModelSerializer):
 
     class Meta:
         model = bowling_models.Match
-        fields = ('id', 'week', 'lanes', 'team1', 'team2', 'team1_definition', 'team2_definition', )
+        fields = ('id', 'lanes', 'team1', 'team2', 'team1_definition', 'team2_definition', )
 
     def update(self, instance, validated_data):
         print 'Validated_data %s' % validated_data
