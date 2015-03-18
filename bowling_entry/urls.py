@@ -22,7 +22,7 @@ urlpatterns = patterns('',
 
 
                        url(r'^api/league/(?P<league_pk>\d+)/weeks/$',
-                           bowling_views.WeekCreateList.as_view(),
+                           bowling_views.WeekList.as_view(),
                            name='bowling_entry_league_weeks'),
                        url(r'^api/league/(?P<league_pk>\d+)/weeks/(?P<week_number>\d+)/$',
                            bowling_views.WeekDetail.as_view(),

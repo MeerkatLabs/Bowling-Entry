@@ -168,25 +168,18 @@ class SubstituteDetail(generics.RetrieveUpdateDestroyAPIView, mixins.LeagueMixin
         return context
 
 
-class WeekCreateList(generics.ListCreateAPIView, mixins.LeagueMixin):
+class WeekList(generics.ListAPIView, mixins.LeagueMixin):
     serializer_class = bowling_serializers.Week
 
     def list(self, request, *args, **kwargs):
         self.league = self.get_league()
-        return super(WeekCreateList, self).list(request, *args, **kwargs)
-
-    def create(self, request, *args, **kwargs):
-        self.league = self.get_league()
-        return super(WeekCreateList, self).create(request, *args, **kwargs)
+        return super(WeekList, self).list(request, *args, **kwargs)
 
     def get_queryset(self):
         return self.league.weeks.prefetch_related('matches')
 
-    def perform_create(self, serializer):
-        serializer.save(league=self.league)
-
     def get_serializer_context(self):
-        context = super(WeekCreateList, self).get_serializer_context()
+        context = super(WeekList, self).get_serializer_context()
         self.append_bowling_context(context)
         return context
 
