@@ -30,7 +30,7 @@ class TeamDefinitionListCreate(generics.ListCreateAPIView, mixins.LeagueMixin):
         return super(TeamDefinitionListCreate, self).list(request, *args, **kwargs)
 
     def get_queryset(self):
-        return self.get_league().teams.prefetch_related('bowlers')
+        return self.league.teams.prefetch_related('bowlers')
 
     def perform_create(self, serializer):
         serializer.save(league=self.get_league())
@@ -133,7 +133,7 @@ class SubstitutesList(generics.ListCreateAPIView, mixins.LeagueMixin):
         return super(SubstitutesList, self).create(request, *args, **kwargs)
 
     def get_queryset(self):
-        return self.get_league().substitutes()
+        return self.league.substitutes()
 
     def perform_create(self, serializer):
         serializer.save(league=self.league, team=None)
@@ -208,7 +208,7 @@ class WeekDetail(generics.RetrieveUpdateDestroyAPIView, mixins.LeagueMixin):
         return super(WeekDetail, self).destroy(request, *args, **kwargs)
 
     def get_queryset(self):
-        return self.get_league().weeks
+        return self.league.weeks
 
     def perform_update(self, serializer):
         serializer.save(league=self.get_league())
