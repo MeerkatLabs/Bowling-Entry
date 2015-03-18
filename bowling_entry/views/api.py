@@ -1,7 +1,6 @@
 from bowling_entry import models as bowling_models
 from rest_framework import generics
 from bowling_entry import serializers as bowling_serializers
-from django.http import Http404
 from bowling_entry.views import mixins
 
 
@@ -262,38 +261,6 @@ class MatchDetail(generics.RetrieveUpdateDestroyAPIView, mixins.WeekMixin):
 
     def get_serializer_context(self):
         context = super(MatchDetail, self).get_serializer_context()
-        self.append_bowling_context(context)
-        return context
-
-
-class MatchTeam(generics.RetrieveUpdateAPIView, mixins.MatchMixin):
-    serializer_class = bowling_serializers.MatchTeam
-
-    def retrieve(self, request, *args, **kwargs):
-        self.league = self.get_league()
-        self.week = self.get_week()
-        self.match = self.get_match()
-        return super(MatchTeam, self).retrieve(request, *args, **kwargs)
-
-    def update(self, request, *args, **kwargs):
-        self.league = self.get_league()
-        self.week = self.get_week()
-        self.match = self.get_match()
-        return super(MatchTeam, self).update(request, *args, **kwargs)
-
-    def get_object(self):
-        match = self.match
-        team_number = int(self.kwargs['pk'])
-
-        if team_number is 1:
-            return match.team1
-        elif team_number is 2:
-            return match.team2
-        else:
-            raise Http404()
-
-    def get_serializer_context(self):
-        context = super(MatchTeam, self).get_serializer_context()
         self.append_bowling_context(context)
         return context
 

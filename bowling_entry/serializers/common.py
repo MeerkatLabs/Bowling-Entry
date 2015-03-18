@@ -91,24 +91,6 @@ class TeamInstanceBowlerInstanceListSerializer(serializers.ListSerializer):
         return ret
 
 
-class TeamInstanceBowlerInstance(serializers.ModelSerializer):
-    id = serializers.IntegerField()
-
-    class Meta:
-        model = bowling_models.TeamInstanceBowler
-        fields = ('id', 'definition', 'type', )
-        list_serializer_class = TeamInstanceBowlerInstanceListSerializer
-
-    def update(self, instance, validated_data):
-
-        print 'validated_data: %s' % validated_data
-
-        definition = validated_data.get('definition')
-        instance.update_definition(definition, validated_data.get('type'))
-
-        return instance
-
-
 class TeamInstance(serializers.ModelSerializer):
     name = serializers.CharField(source='definition.name')
     id = serializers.PrimaryKeyRelatedField(source='definition.id', read_only=True)
@@ -116,22 +98,6 @@ class TeamInstance(serializers.ModelSerializer):
     class Meta:
         model = bowling_models.TeamInstance
         fields = ('id', 'name', )
-
-
-class MatchTeam(serializers.ModelSerializer):
-    name = serializers.CharField(source='definition.name', read_only=True)
-    bowlers = TeamInstanceBowlerInstance(many=True)
-    definition_id = serializers.PrimaryKeyRelatedField(source='definition.id', read_only=True)
-
-    class Meta:
-        model = bowling_models.TeamInstance
-        fields = ('id', 'name', 'bowlers', 'definition_id', )
-
-    def update(self, instance, validated_data):
-
-        self.fields['bowlers'].update(instance.bowlers.all(), validated_data.get('bowlers'))
-
-        return instance
 
 
 class Match(serializers.ModelSerializer):

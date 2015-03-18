@@ -33,10 +33,6 @@ urlpatterns = patterns('',
                        url(r'^api/league/(?P<league_pk>\d+)/weeks/(?P<week_pk>\d+)/matches/(?P<pk>\d+)/$',
                            bowling_views.MatchDetail.as_view(),
                            name='bowling_entry_league_week_match_detail'),
-                       url(r'^api/league/(?P<league_pk>\d+)/weeks/(?P<week_pk>\d+)/matches/(?P<match_pk>\d+)/matchTeam/(?P<pk>\d)/$',
-                           bowling_views.MatchTeam.as_view(),
-                           name='bowling_entry_league_week_match_detail'),
-
 
                        url(r'^api/league/(?P<league_pk>\d+)/teams/$',
                            bowling_views.TeamDefinitionListCreate.as_view(),
