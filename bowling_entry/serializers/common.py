@@ -76,21 +76,6 @@ class Substitute(serializers.ModelSerializer):
         fields = ('id', 'name', 'handicap', 'league', )
 
 
-class TeamInstanceBowlerInstanceListSerializer(serializers.ListSerializer):
-
-    def update(self, instance, validated_data):
-
-        ret = []
-
-        for bowler in validated_data:
-            print '%s' % bowler
-            bowler_instance = instance.get(pk=bowler.get('id'))
-            self.child.update(bowler_instance, bowler)
-            ret.append(bowler_instance)
-
-        return ret
-
-
 class TeamInstance(serializers.ModelSerializer):
     name = serializers.CharField(source='definition.name')
     id = serializers.PrimaryKeyRelatedField(source='definition.id', read_only=True)
