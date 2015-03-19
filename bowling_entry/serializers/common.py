@@ -75,12 +75,39 @@ class TeamDefinition(serializers.ModelSerializer):
 
 
 class BowlerDefinition(serializers.ModelSerializer):
-    team = serializers.ReadOnlyField(source='team.name')
-    league = serializers.ReadOnlyField(source='league.name')
 
     class Meta:
         model = bowling_models.BowlerDefinition
-        fields = ('id', 'name', 'handicap', 'league', 'team')
+        fields = ('id', 'name', 'handicap', 'team')
+
+    def update(self, instance, validated_data):
+        """
+        Update the object and remove the team if the context item is provided.
+        :param instance:
+        :param validated_data:
+        :return:
+        """
+        _instance = super(BowlerDefinition, self).update(instance, validated_data)
+
+        # Need to clear out the team if it was requested in the query string
+        if self.context.get('remove_team', False):
+            _instance.team = None
+            _instance.save()
+
+        return _instance
+
+    def validate_team(self, value):
+        """
+        Need to make sure that the team is defined in the league that this object is already defined in.
+        :param attrs:
+        :return:
+        """
+        league = self.context.get('league')
+        team = league.teams.filter(pk=value.pk)
+        if not len(team):
+            raise serializers.ValidationError('Team is not apart of the current league')
+
+        return value
 
 
 class Substitute(serializers.ModelSerializer):
