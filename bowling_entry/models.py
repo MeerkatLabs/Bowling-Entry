@@ -16,6 +16,15 @@ BOWLER_TYPE_CHOICES = (
     (BLIND, 'Blind'),
 )
 
+MALE = 'M'
+FEMALE = 'F'
+UNKNOWN = 'U'
+BOWLER_GENDER_CHOICES = (
+    (MALE, 'Male'),
+    (FEMALE, 'Female'),
+    (UNKNOWN, 'Unknown')
+)
+
 
 class League(models.Model):
     """
@@ -104,6 +113,7 @@ class BowlerDefinition(models.Model):
     Definition of a bowler that will participate in the league.
     """
     name = models.CharField(max_length=100)
+    gender = models.CharField(choices=BOWLER_GENDER_CHOICES, max_length=1, default=UNKNOWN)
     average = models.IntegerField(blank=True, null=True)
     handicap = models.IntegerField(blank=True, null=True)
     league = models.ForeignKey(League, related_name='bowlers', null=False, blank=False)
@@ -120,7 +130,7 @@ class TeamInstance(models.Model):
     """
     Instance of a team that is bowling on a given week
     """
-    definition = models.ForeignKey(TeamDefinition)
+    definition = models.ForeignKey(TeamDefinition, related_name='instances')
     match = models.ForeignKey('Match')
 
     def define(self):
@@ -167,7 +177,7 @@ class TeamInstanceBowler(models.Model):
     """
     The instance of a bowler that is bowling on a given week
     """
-    definition = models.ForeignKey(BowlerDefinition, null=True)
+    definition = models.ForeignKey(BowlerDefinition, null=True, related_name='instances')
     team = models.ForeignKey(TeamInstance, related_name='bowlers')
     type = models.CharField(max_length=10, blank=False, choices=BOWLER_TYPE_CHOICES, default=REGULAR)
     average = models.IntegerField(blank=True, null=True)

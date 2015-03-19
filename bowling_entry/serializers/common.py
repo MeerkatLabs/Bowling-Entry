@@ -66,7 +66,6 @@ class TeamBowlerDefinition(serializers.ModelSerializer):
 
 
 class TeamDefinition(serializers.ModelSerializer):
-    league = serializers.ReadOnlyField(source='league.name')
     bowlers = TeamBowlerDefinition(read_only=True, many=True)
 
     class Meta:
@@ -78,7 +77,7 @@ class BowlerDefinition(serializers.ModelSerializer):
 
     class Meta:
         model = bowling_models.BowlerDefinition
-        fields = ('id', 'name', 'handicap', 'team')
+        fields = ('id', 'name', 'gender', 'handicap', 'team', )
 
     def update(self, instance, validated_data):
         """
