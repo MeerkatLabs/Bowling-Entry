@@ -98,7 +98,6 @@ class TeamBowlerDefinitionDetail(generics.RetrieveUpdateDestroyAPIView, mixins.T
         return super(TeamBowlerDefinitionDetail, self).retrieve(request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
-        print 'request.GET: %s' % request.GET
         self.league = self.get_league()
         self.team = self.get_team()
         return super(TeamBowlerDefinitionDetail, self).update(request, *args, **kwargs)
@@ -112,12 +111,10 @@ class TeamBowlerDefinitionDetail(generics.RetrieveUpdateDestroyAPIView, mixins.T
         return bowling_models.BowlerDefinition.objects.filter(league=self.league)
 
     def get_serializer_context(self):
-        print 'asdf'
         context = super(TeamBowlerDefinitionDetail, self).get_serializer_context()
         self.append_bowling_context(context)
 
         if 'removeTeam' in self.request.GET:
-            print 'Adding remove_team to serializer context'
             context['remove_team'] = True
         return context
 
