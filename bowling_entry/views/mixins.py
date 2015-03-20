@@ -74,27 +74,3 @@ class WeekMixin(LeagueMixin):
         super(WeekMixin, self).append_bowling_context(context)
         if self.week is not None:
             context['week'] = self.week
-
-
-class MatchMixin(WeekMixin):
-    match_url_kwarg = 'match_pk'
-    match_lookup_field = 'pk'
-    match_queryset = bowling_models.Match.objects
-    match = None
-
-    def get_match_queryset(self):
-        if self.week is None:
-            self.week = self.get_week()
-
-        return self.week.matches
-
-    def get_match(self):
-        filter_kwargs = {self.match_lookup_field: self.kwargs[self.match_url_kwarg]}
-        obj = shortcuts.get_object_or_404(self.get_match_queryset(), **filter_kwargs)
-
-        return obj
-
-    def append_bowling_context(self, context):
-        super(MatchMixin, self).append_bowling_context(context)
-        if self.match is not None:
-            context['match'] = self.match

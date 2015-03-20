@@ -2,7 +2,6 @@ from django.test import TestCase
 from bowling_entry import models as bowling_models
 from bowling_entry.serializers import common
 from bowling_entry.serializers import scoresheet
-from django.contrib.auth import models as auth_models
 
 
 class ScoreSheetSerializerTestCase(TestCase):
@@ -10,7 +9,7 @@ class ScoreSheetSerializerTestCase(TestCase):
 
     def setUp(self):
         self.league = bowling_models.League.objects.get(pk=3)
-        self.week = self.league.weeks.get(week_number=1)
+        self.week = self.league.weeks.get(week_number=2)
 
         self.team1 = self.league.teams.all()[0]
         self.team2 = self.league.teams.all()[1]

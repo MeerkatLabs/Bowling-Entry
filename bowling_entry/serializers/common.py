@@ -71,6 +71,7 @@ class TeamDefinition(serializers.ModelSerializer):
     class Meta:
         model = bowling_models.TeamDefinition
         fields = ('id', 'league', 'name', 'bowlers', )
+        extra_kwargs = {'league': {'read_only': True}}
 
 
 class BowlerDefinition(serializers.ModelSerializer):
@@ -98,7 +99,7 @@ class BowlerDefinition(serializers.ModelSerializer):
     def validate_team(self, value):
         """
         Need to make sure that the team is defined in the league that this object is already defined in.
-        :param attrs:
+        :param value:
         :return:
         """
         league = self.context.get('league')
@@ -139,30 +140,6 @@ class Match(serializers.ModelSerializer):
     class Meta:
         model = bowling_models.Match
         fields = ('id', 'lanes', 'team1', 'team2', 'team1_definition', 'team2_definition', )
-
-    def update(self, instance, validated_data):
-        print 'Validated_data %s' % validated_data
-        print 'Context %s' % self.context
-
-        print 'Week: %s' % self.context.get('week')
-
-        instance.week = self.context.get('week')
-        instance.lanes = validated_data['lanes']
-
-        team01 = validated_data.pop('team1')
-        instance.team1.definition = team01['definition']
-        instance.team1.save()
-
-        team02 = validated_data.pop('team2')
-        instance.team2.definition = team02['definition']
-        instance.team2.save()
-
-        instance.save()
-
-        instance.clear_games()
-        instance.create_games()
-
-        return instance
 
     def create(self, validated_data):
         print 'Validated_data %s' % validated_data

@@ -1,7 +1,9 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-import datetime
+
 
 # Create your models here.
 
@@ -94,6 +96,27 @@ class League(models.Model):
 
         return handicap
 
+    def get_absolute_url(self):
+        return reverse('bowling_entry_league_detail', args=[self.pk])
+
+    def get_absolute_teams_url(self):
+        """
+        URL used to get a listing of all of teams
+        """
+        return reverse('bowling_entry_league_teams', args=[self.pk])
+
+    def get_absolute_substitutes_url(self):
+        """
+        URL used to get a listing of all of substitutes.
+        """
+        return reverse('bowling_entry_league_substitutes', args=[self.pk])
+
+    def get_absolute_weeks_url(self):
+        """
+        URL used to get a listing of all of substitutes.
+        """
+        return reverse('bowling_entry_league_weeks', args=[self.pk])
+
 
 class Week(models.Model):
     """
@@ -113,6 +136,9 @@ class Week(models.Model):
     def get_absolute_url(self):
         return reverse('bowling_entry_league_week_detail', args=[self.league.pk, self.week_number])
 
+    def get_absolute_matches_url(self):
+        return reverse('bowling_entry_league_week_matches', args=[self.league.pk, self.week_number])
+
 
 class TeamDefinition(models.Model):
     """
@@ -126,6 +152,12 @@ class TeamDefinition(models.Model):
 
     def get_absolute_url(self):
         return reverse('bowling_entry_league_team_detail', args=[self.league.pk, self.pk])
+
+    def get_absolute_bowlers_url(self):
+        """
+        Collection of all the bowlers on a team
+        """
+        return reverse('bowling_entry_league_team_bowlers', args=[self.league.pk, self.pk])
 
 
 class BowlerDefinition(models.Model):
@@ -149,6 +181,12 @@ class BowlerDefinition(models.Model):
         Calculate my handicap
         """
         return self.league.calculate_handicap(self)
+
+    def get_absolute_url(self):
+        if self.team is None:
+            return reverse('bowling_entry_league_substitute_detail', args=[self.league.pk, self.pk])
+        else:
+            return reverse('bowling_entry_league_team_bowlers_detail', args=[self.league.pk, self.team.pk, self.pk])
 
 
 class TeamInstance(models.Model):
@@ -239,7 +277,8 @@ class Match(models.Model):
     team2 = models.ForeignKey(TeamInstance, related_name='+', null=True)
 
     def get_absolute_url(self):
-        return reverse('bowling_entry_matchdetails', args=[self.pk])
+        return reverse('bowling_entry_league_week_match_detail', args=[self.week.league.pk, self.week.week_number,
+                                                                       self.pk])
 
     def create_games(self):
         self.team1.define()

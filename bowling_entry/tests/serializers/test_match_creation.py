@@ -8,7 +8,7 @@ class MatchCreationTest(TestCase):
 
     def test_create_match(self):
         league = bowling_models.League.objects.get(pk=3)
-        week = league.weeks.get(week_number=1)
+        week = league.weeks.get(week_number=2)
 
         team1 = league.teams.all()[0]
         team2 = league.teams.all()[1]
@@ -47,7 +47,7 @@ class MatchCreationTest(TestCase):
     def test_teams_cannot_play_each_other(self):
 
         league = bowling_models.League.objects.get(pk=3)
-        week = league.weeks.get(week_number=1)
+        week = league.weeks.get(week_number=2)
 
         team1 = league.teams.all()[0]
 
@@ -68,7 +68,7 @@ class MatchCreationTest(TestCase):
 
     def test_lanes_not_colocated(self):
         league = bowling_models.League.objects.get(pk=3)
-        week = league.weeks.get(week_number=1)
+        week = league.weeks.get(week_number=2)
 
         team1 = league.teams.all()[0]
         team2 = league.teams.all()[1]
@@ -90,7 +90,7 @@ class MatchCreationTest(TestCase):
 
     def test_teams_already_in_games(self):
         league = bowling_models.League.objects.get(pk=3)
-        week = league.weeks.get(week_number=1)
+        week = league.weeks.get(week_number=2)
 
         team1 = league.teams.all()[0]
         team2 = league.teams.all()[1]

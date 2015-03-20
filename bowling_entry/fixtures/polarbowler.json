@@ -153,11 +153,11 @@
   },
   {
     "fields": {
-      "expire_date": "2015-03-26T20:42:11.189Z",
+      "expire_date": "2015-04-03T16:43:30.483Z",
       "session_data": "NGJlZWYxMGZhZjY4YTM3NDkyN2M4ZWVlNThiYTIxODQ3ODNiOWYxZDp7Il9hdXRoX3VzZXJfaGFzaCI6Ijk1NTVkMmFkZWEwY2JhNjI1YmFlNTM1ZWRjZjAzZDRlMTYxYzNjMDAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9"
     },
     "model": "sessions.session",
-    "pk": "vajctvmynpkcat3d2qcbegbqg3v8ufav"
+    "pk": "uh8dcocq8u8era76vzgnlkberhh6l4wm"
   },
   {
     "fields": {
@@ -172,7 +172,7 @@
     "fields": {
       "date": "2014-11-18",
       "league": 3,
-      "week_number": 2
+      "week_number": 3
     },
     "model": "bowling_entry.week",
     "pk": 57
@@ -181,7 +181,7 @@
     "fields": {
       "date": "2014-11-25",
       "league": 3,
-      "week_number": 3
+      "week_number": 4
     },
     "model": "bowling_entry.week",
     "pk": 58
@@ -190,7 +190,7 @@
     "fields": {
       "date": "2014-12-16",
       "league": 3,
-      "week_number": 4
+      "week_number": 7
     },
     "model": "bowling_entry.week",
     "pk": 59
@@ -199,7 +199,7 @@
     "fields": {
       "date": "2014-12-23",
       "league": 3,
-      "week_number": 5
+      "week_number": 8
     },
     "model": "bowling_entry.week",
     "pk": 60
@@ -208,7 +208,7 @@
     "fields": {
       "date": "2014-12-30",
       "league": 3,
-      "week_number": 6
+      "week_number": 9
     },
     "model": "bowling_entry.week",
     "pk": 61
@@ -217,7 +217,7 @@
     "fields": {
       "date": "2014-12-02",
       "league": 3,
-      "week_number": 7
+      "week_number": 5
     },
     "model": "bowling_entry.week",
     "pk": 62
@@ -226,7 +226,7 @@
     "fields": {
       "date": "2015-01-13",
       "league": 3,
-      "week_number": 8
+      "week_number": 11
     },
     "model": "bowling_entry.week",
     "pk": 63
@@ -235,7 +235,7 @@
     "fields": {
       "date": "2015-01-06",
       "league": 3,
-      "week_number": 9
+      "week_number": 10
     },
     "model": "bowling_entry.week",
     "pk": 64
@@ -244,7 +244,7 @@
     "fields": {
       "date": "2015-01-20",
       "league": 3,
-      "week_number": 10
+      "week_number": 12
     },
     "model": "bowling_entry.week",
     "pk": 65
@@ -253,7 +253,7 @@
     "fields": {
       "date": "2015-02-10",
       "league": 3,
-      "week_number": 11
+      "week_number": 15
     },
     "model": "bowling_entry.week",
     "pk": 66
@@ -262,7 +262,7 @@
     "fields": {
       "date": "2015-02-17",
       "league": 3,
-      "week_number": 12
+      "week_number": 16
     },
     "model": "bowling_entry.week",
     "pk": 67
@@ -271,7 +271,7 @@
     "fields": {
       "date": "2014-11-11",
       "league": 3,
-      "week_number": 13
+      "week_number": 2
     },
     "model": "bowling_entry.week",
     "pk": 68
@@ -280,7 +280,7 @@
     "fields": {
       "date": "2015-02-24",
       "league": 3,
-      "week_number": 14
+      "week_number": 17
     },
     "model": "bowling_entry.week",
     "pk": 69
@@ -289,7 +289,7 @@
     "fields": {
       "date": "2015-02-03",
       "league": 3,
-      "week_number": 15
+      "week_number": 14
     },
     "model": "bowling_entry.week",
     "pk": 70
@@ -298,7 +298,7 @@
     "fields": {
       "date": "2015-01-27",
       "league": 3,
-      "week_number": 16
+      "week_number": 13
     },
     "model": "bowling_entry.week",
     "pk": 71
@@ -307,7 +307,7 @@
     "fields": {
       "date": "2015-03-03",
       "league": 3,
-      "week_number": 17
+      "week_number": 18
     },
     "model": "bowling_entry.week",
     "pk": 72
@@ -316,10 +316,100 @@
     "fields": {
       "date": "2014-12-09",
       "league": 3,
-      "week_number": 18
+      "week_number": 6
     },
     "model": "bowling_entry.week",
     "pk": 73
+  },
+  {
+    "fields": {
+      "date": "2015-03-19",
+      "league": 10,
+      "week_number": 1
+    },
+    "model": "bowling_entry.week",
+    "pk": 132
+  },
+  {
+    "fields": {
+      "date": "2015-03-26",
+      "league": 10,
+      "week_number": 2
+    },
+    "model": "bowling_entry.week",
+    "pk": 133
+  },
+  {
+    "fields": {
+      "date": "2015-04-02",
+      "league": 10,
+      "week_number": 3
+    },
+    "model": "bowling_entry.week",
+    "pk": 134
+  },
+  {
+    "fields": {
+      "date": "2015-04-09",
+      "league": 10,
+      "week_number": 4
+    },
+    "model": "bowling_entry.week",
+    "pk": 135
+  },
+  {
+    "fields": {
+      "date": "2015-04-16",
+      "league": 10,
+      "week_number": 5
+    },
+    "model": "bowling_entry.week",
+    "pk": 136
+  },
+  {
+    "fields": {
+      "date": "2015-04-23",
+      "league": 10,
+      "week_number": 6
+    },
+    "model": "bowling_entry.week",
+    "pk": 137
+  },
+  {
+    "fields": {
+      "date": "2015-04-30",
+      "league": 10,
+      "week_number": 7
+    },
+    "model": "bowling_entry.week",
+    "pk": 138
+  },
+  {
+    "fields": {
+      "date": "2015-05-07",
+      "league": 10,
+      "week_number": 8
+    },
+    "model": "bowling_entry.week",
+    "pk": 139
+  },
+  {
+    "fields": {
+      "date": "2015-05-14",
+      "league": 10,
+      "week_number": 9
+    },
+    "model": "bowling_entry.week",
+    "pk": 140
+  },
+  {
+    "fields": {
+      "date": "2015-05-21",
+      "league": 10,
+      "week_number": 10
+    },
+    "model": "bowling_entry.week",
+    "pk": 141
   },
   {
     "fields": {
@@ -419,957 +509,2695 @@
   },
   {
     "fields": {
-      "league": 3,
+      "league": 10,
+      "name": "Here is a Team"
+    },
+    "model": "bowling_entry.teamdefinition",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "league": 10,
+      "name": "Test Team"
+    },
+    "model": "bowling_entry.teamdefinition",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "gender": "U",
       "average": null,
+      "team": 4,
       "name": "Jay",
-      "team": 4
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 12
   },
   {
     "fields": {
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 4,
       "name": "Lindsay",
-      "team": 4
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 13
   },
   {
     "fields": {
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 4,
       "name": "Todd",
-      "team": 4
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 14
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 4,
       "name": "Nichie",
-      "team": 4
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 15
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 4,
       "name": "Michelle",
-      "team": 4
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 16
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 4,
       "name": "Will",
-      "team": 4
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 17
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 4,
       "name": "Michael",
-      "team": 4
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 18
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 4,
       "name": "Thomas",
-      "team": 4
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 19
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 5,
       "name": "Michael",
-      "team": 5
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 20
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 5,
       "name": "Laura",
-      "team": 5
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 21
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 5,
       "name": "Bill",
-      "team": 5
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 22
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 5,
       "name": "Janie",
-      "team": 5
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 23
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 5,
       "name": "Ram",
-      "team": 5
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 24
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 5,
       "name": "Dave",
-      "team": 5
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 25
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 5,
       "name": "Nori",
-      "team": 5
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 26
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 6,
       "name": "Gordon",
-      "team": 6
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 27
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 6,
       "name": "James",
-      "team": 6
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 28
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 6,
       "name": "Justin",
-      "team": 6
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 29
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 6,
       "name": "Daniel",
-      "team": 6
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 30
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 6,
       "name": "Tannis",
-      "team": 6
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 31
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 6,
       "name": "Eddie",
-      "team": 6
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 32
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 6,
       "name": "Theresa",
-      "team": 6
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 33
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 6,
       "name": "Conner",
-      "team": 6
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 34
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 7,
       "name": "Robert",
-      "team": 7
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 35
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 7,
       "name": "Erin",
-      "team": 7
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 36
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 7,
       "name": "Steve",
-      "team": 7
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 37
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 7,
       "name": "Polly",
-      "team": 7
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 38
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 7,
       "name": "Dean",
-      "team": 7
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 39
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 7,
       "name": "Heather",
-      "team": 7
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 40
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 7,
       "name": "Ken",
-      "team": 7
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 41
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 8,
       "name": "Roger",
-      "team": 8
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 42
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 8,
       "name": "Hope",
-      "team": 8
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 43
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 8,
       "name": "Lauren",
-      "team": 8
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 44
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 8,
       "name": "Jaired",
-      "team": 8
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 45
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 8,
       "name": "Dre",
-      "team": 8
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 46
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 8,
       "name": "Kayla",
-      "team": 8
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 47
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 8,
       "name": "Kelly",
-      "team": 8
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 48
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 8,
       "name": "Jennifer",
-      "team": 8
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 49
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 9,
       "name": "Alex",
-      "team": 9
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 50
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 9,
       "name": "Bill",
-      "team": 9
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 51
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 9,
       "name": "Sam",
-      "team": 9
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 52
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 9,
       "name": "Stefanos",
-      "team": 9
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 53
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 9,
       "name": "Christine",
-      "team": 9
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 54
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 9,
       "name": "Chris",
-      "team": 9
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 55
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 9,
       "name": "Keith",
-      "team": 9
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 56
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 9,
       "name": "Crystal",
-      "team": 9
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 57
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 10,
       "name": "Stephen",
-      "team": 10
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 58
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 10,
       "name": "Jose",
-      "team": 10
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 59
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 10,
       "name": "Jonathan",
-      "team": 10
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 60
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 10,
       "name": "Chris",
-      "team": 10
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 61
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 10,
       "name": "Cheryl",
-      "team": 10
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 62
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 11,
       "name": "Jon",
-      "team": 11
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 63
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 11,
       "name": "Chris",
-      "team": 11
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 64
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 11,
       "name": "Billie Jean",
-      "team": 11
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 65
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 11,
       "name": "Krystal",
-      "team": 11
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 66
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 11,
       "name": "DJ",
-      "team": 11
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 67
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 11,
       "name": "Frank",
-      "team": 11
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 68
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 11,
       "name": "Kristen",
-      "team": 11
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 69
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 12,
       "name": "Bridget",
-      "team": 12
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 70
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 12,
       "name": "Kaleb",
-      "team": 12
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 71
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 12,
       "name": "Spring",
-      "team": 12
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 72
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 12,
       "name": "Angela",
-      "team": 12
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 73
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 12,
       "name": "Patricia",
-      "team": 12
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 74
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 12,
       "name": "Shawn",
-      "team": 12
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 75
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 12,
       "name": "Krista",
-      "team": 12
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 76
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 12,
       "name": "Matt",
-      "team": 12
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 77
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 13,
       "name": "Brad",
-      "team": 13
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 78
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 13,
       "name": "Doreen",
-      "team": 13
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 79
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 13,
       "name": "Tom B.",
-      "team": 13
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 80
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 13,
       "name": "Sandy",
-      "team": 13
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 81
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 13,
       "name": "Tom D.",
-      "team": 13
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 82
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 13,
       "name": "Chris",
-      "team": 13
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 83
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 14,
       "name": "Dennis",
-      "team": 14
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 84
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 14,
       "name": "Joe",
-      "team": 14
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 85
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 14,
       "name": "Nichoel",
-      "team": 14
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 86
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 14,
       "name": "Dominic",
-      "team": 14
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 87
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 14,
       "name": "Erin",
-      "team": 14
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 88
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 14,
       "name": "Ryan",
-      "team": 14
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 89
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 15,
       "name": "Diamond",
-      "team": 15
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 90
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 15,
       "name": "Tyler",
-      "team": 15
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 91
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 15,
       "name": "Darrell",
-      "team": 15
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 92
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 15,
       "name": "Katerina",
-      "team": 15
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 93
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 15,
       "name": "Jeremiah",
-      "team": 15
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 94
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 15,
       "name": "Tara",
-      "team": 15
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 95
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 15,
       "name": "Nick",
-      "team": 15
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 96
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": 15,
       "name": "Sam",
-      "team": 15
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 97
   },
   {
     "fields": {
-      
-      "league": 3,
+      "gender": "U",
       "average": null,
+      "team": null,
       "name": "Tori",
-      "team": null
+      "league": 3
     },
     "model": "bowling_entry.bowlerdefinition",
     "pk": 101
+  },
+  {
+    "fields": {
+      "gender": "U",
+      "average": null,
+      "team": null,
+      "name": "Robert",
+      "league": 10
+    },
+    "model": "bowling_entry.bowlerdefinition",
+    "pk": 102
+  },
+  {
+    "fields": {
+      "gender": "U",
+      "average": null,
+      "team": null,
+      "name": "John",
+      "league": 10
+    },
+    "model": "bowling_entry.bowlerdefinition",
+    "pk": 103
+  },
+  {
+    "fields": {
+      "gender": "U",
+      "average": null,
+      "team": 18,
+      "name": "Erin",
+      "league": 10
+    },
+    "model": "bowling_entry.bowlerdefinition",
+    "pk": 104
+  },
+  {
+    "fields": {
+      "gender": "U",
+      "average": null,
+      "team": 18,
+      "name": "Tom",
+      "league": 10
+    },
+    "model": "bowling_entry.bowlerdefinition",
+    "pk": 105
+  },
+  {
+    "fields": {
+      "gender": "U",
+      "average": null,
+      "team": 18,
+      "name": "Nashville",
+      "league": 10
+    },
+    "model": "bowling_entry.bowlerdefinition",
+    "pk": 106
+  },
+  {
+    "fields": {
+      "definition": 4,
+      "match": 3
+    },
+    "model": "bowling_entry.teaminstance",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "definition": 5,
+      "match": 3
+    },
+    "model": "bowling_entry.teaminstance",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "definition": 6,
+      "match": 4
+    },
+    "model": "bowling_entry.teaminstance",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "definition": 7,
+      "match": 4
+    },
+    "model": "bowling_entry.teaminstance",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "definition": 8,
+      "match": 5
+    },
+    "model": "bowling_entry.teaminstance",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "definition": 9,
+      "match": 5
+    },
+    "model": "bowling_entry.teaminstance",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "definition": 10,
+      "match": 6
+    },
+    "model": "bowling_entry.teaminstance",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "definition": 11,
+      "match": 6
+    },
+    "model": "bowling_entry.teaminstance",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "definition": 12,
+      "handicap": null,
+      "average": null,
+      "team": 5,
+      "type": "regular",
+      "order": 0
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "definition": 13,
+      "handicap": null,
+      "average": null,
+      "team": 5,
+      "type": "regular",
+      "order": 1
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "definition": 14,
+      "handicap": null,
+      "average": null,
+      "team": 5,
+      "type": "regular",
+      "order": 2
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "definition": 15,
+      "handicap": null,
+      "average": null,
+      "team": 5,
+      "type": "regular",
+      "order": 3
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "definition": 101,
+      "handicap": null,
+      "average": null,
+      "team": 5,
+      "type": "substitute",
+      "order": 4
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "definition": 20,
+      "handicap": null,
+      "average": null,
+      "team": 6,
+      "type": "regular",
+      "order": 0
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "definition": 21,
+      "handicap": null,
+      "average": null,
+      "team": 6,
+      "type": "regular",
+      "order": 1
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "definition": 22,
+      "handicap": null,
+      "average": null,
+      "team": 6,
+      "type": "regular",
+      "order": 2
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "definition": 23,
+      "handicap": null,
+      "average": null,
+      "team": 6,
+      "type": "regular",
+      "order": 3
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "definition": 24,
+      "handicap": null,
+      "average": null,
+      "team": 6,
+      "type": "regular",
+      "order": 4
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "definition": 27,
+      "handicap": null,
+      "average": null,
+      "team": 7,
+      "type": "regular",
+      "order": 0
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "definition": 28,
+      "handicap": null,
+      "average": null,
+      "team": 7,
+      "type": "regular",
+      "order": 1
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "definition": 29,
+      "handicap": null,
+      "average": null,
+      "team": 7,
+      "type": "regular",
+      "order": 2
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "definition": 30,
+      "handicap": null,
+      "average": null,
+      "team": 7,
+      "type": "regular",
+      "order": 3
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "definition": 31,
+      "handicap": null,
+      "average": null,
+      "team": 7,
+      "type": "regular",
+      "order": 4
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "definition": 35,
+      "handicap": null,
+      "average": null,
+      "team": 8,
+      "type": "regular",
+      "order": 0
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "definition": 36,
+      "handicap": null,
+      "average": null,
+      "team": 8,
+      "type": "regular",
+      "order": 1
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "definition": 37,
+      "handicap": null,
+      "average": null,
+      "team": 8,
+      "type": "regular",
+      "order": 2
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "definition": 38,
+      "handicap": null,
+      "average": null,
+      "team": 8,
+      "type": "regular",
+      "order": 3
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "definition": 39,
+      "handicap": null,
+      "average": null,
+      "team": 8,
+      "type": "regular",
+      "order": 4
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "definition": 42,
+      "handicap": null,
+      "average": null,
+      "team": 9,
+      "type": "regular",
+      "order": 0
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "definition": 43,
+      "handicap": null,
+      "average": null,
+      "team": 9,
+      "type": "regular",
+      "order": 1
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "definition": 44,
+      "handicap": null,
+      "average": null,
+      "team": 9,
+      "type": "regular",
+      "order": 2
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "definition": 45,
+      "handicap": null,
+      "average": null,
+      "team": 9,
+      "type": "regular",
+      "order": 3
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "definition": 46,
+      "handicap": null,
+      "average": null,
+      "team": 9,
+      "type": "regular",
+      "order": 4
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "definition": 50,
+      "handicap": null,
+      "average": null,
+      "team": 10,
+      "type": "regular",
+      "order": 0
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "definition": 51,
+      "handicap": null,
+      "average": null,
+      "team": 10,
+      "type": "regular",
+      "order": 1
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 37
+  },
+  {
+    "fields": {
+      "definition": 52,
+      "handicap": null,
+      "average": null,
+      "team": 10,
+      "type": "regular",
+      "order": 2
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 38
+  },
+  {
+    "fields": {
+      "definition": 53,
+      "handicap": null,
+      "average": null,
+      "team": 10,
+      "type": "regular",
+      "order": 3
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 39
+  },
+  {
+    "fields": {
+      "definition": 54,
+      "handicap": null,
+      "average": null,
+      "team": 10,
+      "type": "regular",
+      "order": 4
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 40
+  },
+  {
+    "fields": {
+      "definition": 58,
+      "handicap": null,
+      "average": null,
+      "team": 11,
+      "type": "regular",
+      "order": 0
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 41
+  },
+  {
+    "fields": {
+      "definition": 59,
+      "handicap": null,
+      "average": null,
+      "team": 11,
+      "type": "regular",
+      "order": 1
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 42
+  },
+  {
+    "fields": {
+      "definition": 60,
+      "handicap": null,
+      "average": null,
+      "team": 11,
+      "type": "regular",
+      "order": 2
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 43
+  },
+  {
+    "fields": {
+      "definition": 61,
+      "handicap": null,
+      "average": null,
+      "team": 11,
+      "type": "regular",
+      "order": 3
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 44
+  },
+  {
+    "fields": {
+      "definition": 62,
+      "handicap": null,
+      "average": null,
+      "team": 11,
+      "type": "regular",
+      "order": 4
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 45
+  },
+  {
+    "fields": {
+      "definition": 63,
+      "handicap": null,
+      "average": null,
+      "team": 12,
+      "type": "regular",
+      "order": 0
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 46
+  },
+  {
+    "fields": {
+      "definition": 64,
+      "handicap": null,
+      "average": null,
+      "team": 12,
+      "type": "regular",
+      "order": 1
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 47
+  },
+  {
+    "fields": {
+      "definition": 65,
+      "handicap": null,
+      "average": null,
+      "team": 12,
+      "type": "regular",
+      "order": 2
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 48
+  },
+  {
+    "fields": {
+      "definition": 66,
+      "handicap": null,
+      "average": null,
+      "team": 12,
+      "type": "regular",
+      "order": 3
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 49
+  },
+  {
+    "fields": {
+      "definition": 67,
+      "handicap": null,
+      "average": null,
+      "team": 12,
+      "type": "regular",
+      "order": 4
+    },
+    "model": "bowling_entry.teaminstancebowler",
+    "pk": 50
+  },
+  {
+    "fields": {
+      "week": 56,
+      "lanes": "3,4",
+      "team1": 5,
+      "team2": 6
+    },
+    "model": "bowling_entry.match",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "week": 56,
+      "lanes": "5,6",
+      "team1": 7,
+      "team2": 8
+    },
+    "model": "bowling_entry.match",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "week": 56,
+      "lanes": "7,8",
+      "team1": 9,
+      "team2": 10
+    },
+    "model": "bowling_entry.match",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "week": 56,
+      "lanes": "9,10",
+      "team1": 11,
+      "team2": 12
+    },
+    "model": "bowling_entry.match",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "total": 116,
+      "game_number": 1,
+      "bowler": 11
+    },
+    "model": "bowling_entry.game",
+    "pk": 76
+  },
+  {
+    "fields": {
+      "total": 137,
+      "game_number": 2,
+      "bowler": 11
+    },
+    "model": "bowling_entry.game",
+    "pk": 77
+  },
+  {
+    "fields": {
+      "total": 121,
+      "game_number": 3,
+      "bowler": 11
+    },
+    "model": "bowling_entry.game",
+    "pk": 78
+  },
+  {
+    "fields": {
+      "total": 94,
+      "game_number": 1,
+      "bowler": 12
+    },
+    "model": "bowling_entry.game",
+    "pk": 79
+  },
+  {
+    "fields": {
+      "total": 90,
+      "game_number": 2,
+      "bowler": 12
+    },
+    "model": "bowling_entry.game",
+    "pk": 80
+  },
+  {
+    "fields": {
+      "total": 119,
+      "game_number": 3,
+      "bowler": 12
+    },
+    "model": "bowling_entry.game",
+    "pk": 81
+  },
+  {
+    "fields": {
+      "total": 108,
+      "game_number": 1,
+      "bowler": 13
+    },
+    "model": "bowling_entry.game",
+    "pk": 82
+  },
+  {
+    "fields": {
+      "total": 87,
+      "game_number": 2,
+      "bowler": 13
+    },
+    "model": "bowling_entry.game",
+    "pk": 83
+  },
+  {
+    "fields": {
+      "total": 142,
+      "game_number": 3,
+      "bowler": 13
+    },
+    "model": "bowling_entry.game",
+    "pk": 84
+  },
+  {
+    "fields": {
+      "total": 77,
+      "game_number": 1,
+      "bowler": 14
+    },
+    "model": "bowling_entry.game",
+    "pk": 85
+  },
+  {
+    "fields": {
+      "total": 78,
+      "game_number": 2,
+      "bowler": 14
+    },
+    "model": "bowling_entry.game",
+    "pk": 86
+  },
+  {
+    "fields": {
+      "total": 72,
+      "game_number": 3,
+      "bowler": 14
+    },
+    "model": "bowling_entry.game",
+    "pk": 87
+  },
+  {
+    "fields": {
+      "total": 95,
+      "game_number": 1,
+      "bowler": 15
+    },
+    "model": "bowling_entry.game",
+    "pk": 88
+  },
+  {
+    "fields": {
+      "total": 86,
+      "game_number": 2,
+      "bowler": 15
+    },
+    "model": "bowling_entry.game",
+    "pk": 89
+  },
+  {
+    "fields": {
+      "total": 117,
+      "game_number": 3,
+      "bowler": 15
+    },
+    "model": "bowling_entry.game",
+    "pk": 90
+  },
+  {
+    "fields": {
+      "total": 97,
+      "game_number": 1,
+      "bowler": 16
+    },
+    "model": "bowling_entry.game",
+    "pk": 91
+  },
+  {
+    "fields": {
+      "total": 127,
+      "game_number": 2,
+      "bowler": 16
+    },
+    "model": "bowling_entry.game",
+    "pk": 92
+  },
+  {
+    "fields": {
+      "total": 127,
+      "game_number": 3,
+      "bowler": 16
+    },
+    "model": "bowling_entry.game",
+    "pk": 93
+  },
+  {
+    "fields": {
+      "total": 77,
+      "game_number": 1,
+      "bowler": 17
+    },
+    "model": "bowling_entry.game",
+    "pk": 94
+  },
+  {
+    "fields": {
+      "total": 82,
+      "game_number": 2,
+      "bowler": 17
+    },
+    "model": "bowling_entry.game",
+    "pk": 95
+  },
+  {
+    "fields": {
+      "total": 104,
+      "game_number": 3,
+      "bowler": 17
+    },
+    "model": "bowling_entry.game",
+    "pk": 96
+  },
+  {
+    "fields": {
+      "total": 130,
+      "game_number": 1,
+      "bowler": 18
+    },
+    "model": "bowling_entry.game",
+    "pk": 97
+  },
+  {
+    "fields": {
+      "total": 122,
+      "game_number": 2,
+      "bowler": 18
+    },
+    "model": "bowling_entry.game",
+    "pk": 98
+  },
+  {
+    "fields": {
+      "total": 186,
+      "game_number": 3,
+      "bowler": 18
+    },
+    "model": "bowling_entry.game",
+    "pk": 99
+  },
+  {
+    "fields": {
+      "total": 126,
+      "game_number": 1,
+      "bowler": 19
+    },
+    "model": "bowling_entry.game",
+    "pk": 100
+  },
+  {
+    "fields": {
+      "total": 115,
+      "game_number": 2,
+      "bowler": 19
+    },
+    "model": "bowling_entry.game",
+    "pk": 101
+  },
+  {
+    "fields": {
+      "total": 131,
+      "game_number": 3,
+      "bowler": 19
+    },
+    "model": "bowling_entry.game",
+    "pk": 102
+  },
+  {
+    "fields": {
+      "total": 87,
+      "game_number": 1,
+      "bowler": 20
+    },
+    "model": "bowling_entry.game",
+    "pk": 103
+  },
+  {
+    "fields": {
+      "total": 138,
+      "game_number": 2,
+      "bowler": 20
+    },
+    "model": "bowling_entry.game",
+    "pk": 104
+  },
+  {
+    "fields": {
+      "total": 93,
+      "game_number": 3,
+      "bowler": 20
+    },
+    "model": "bowling_entry.game",
+    "pk": 105
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 21
+    },
+    "model": "bowling_entry.game",
+    "pk": 106
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 21
+    },
+    "model": "bowling_entry.game",
+    "pk": 107
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 21
+    },
+    "model": "bowling_entry.game",
+    "pk": 108
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 22
+    },
+    "model": "bowling_entry.game",
+    "pk": 109
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 22
+    },
+    "model": "bowling_entry.game",
+    "pk": 110
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 22
+    },
+    "model": "bowling_entry.game",
+    "pk": 111
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 23
+    },
+    "model": "bowling_entry.game",
+    "pk": 112
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 23
+    },
+    "model": "bowling_entry.game",
+    "pk": 113
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 23
+    },
+    "model": "bowling_entry.game",
+    "pk": 114
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 24
+    },
+    "model": "bowling_entry.game",
+    "pk": 115
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 24
+    },
+    "model": "bowling_entry.game",
+    "pk": 116
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 24
+    },
+    "model": "bowling_entry.game",
+    "pk": 117
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 25
+    },
+    "model": "bowling_entry.game",
+    "pk": 118
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 25
+    },
+    "model": "bowling_entry.game",
+    "pk": 119
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 25
+    },
+    "model": "bowling_entry.game",
+    "pk": 120
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 26
+    },
+    "model": "bowling_entry.game",
+    "pk": 121
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 26
+    },
+    "model": "bowling_entry.game",
+    "pk": 122
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 26
+    },
+    "model": "bowling_entry.game",
+    "pk": 123
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 27
+    },
+    "model": "bowling_entry.game",
+    "pk": 124
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 27
+    },
+    "model": "bowling_entry.game",
+    "pk": 125
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 27
+    },
+    "model": "bowling_entry.game",
+    "pk": 126
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 28
+    },
+    "model": "bowling_entry.game",
+    "pk": 127
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 28
+    },
+    "model": "bowling_entry.game",
+    "pk": 128
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 28
+    },
+    "model": "bowling_entry.game",
+    "pk": 129
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 29
+    },
+    "model": "bowling_entry.game",
+    "pk": 130
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 29
+    },
+    "model": "bowling_entry.game",
+    "pk": 131
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 29
+    },
+    "model": "bowling_entry.game",
+    "pk": 132
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 30
+    },
+    "model": "bowling_entry.game",
+    "pk": 133
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 30
+    },
+    "model": "bowling_entry.game",
+    "pk": 134
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 30
+    },
+    "model": "bowling_entry.game",
+    "pk": 135
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 31
+    },
+    "model": "bowling_entry.game",
+    "pk": 136
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 31
+    },
+    "model": "bowling_entry.game",
+    "pk": 137
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 31
+    },
+    "model": "bowling_entry.game",
+    "pk": 138
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 32
+    },
+    "model": "bowling_entry.game",
+    "pk": 139
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 32
+    },
+    "model": "bowling_entry.game",
+    "pk": 140
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 32
+    },
+    "model": "bowling_entry.game",
+    "pk": 141
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 33
+    },
+    "model": "bowling_entry.game",
+    "pk": 142
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 33
+    },
+    "model": "bowling_entry.game",
+    "pk": 143
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 33
+    },
+    "model": "bowling_entry.game",
+    "pk": 144
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 34
+    },
+    "model": "bowling_entry.game",
+    "pk": 145
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 34
+    },
+    "model": "bowling_entry.game",
+    "pk": 146
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 34
+    },
+    "model": "bowling_entry.game",
+    "pk": 147
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 35
+    },
+    "model": "bowling_entry.game",
+    "pk": 148
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 35
+    },
+    "model": "bowling_entry.game",
+    "pk": 149
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 35
+    },
+    "model": "bowling_entry.game",
+    "pk": 150
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 36
+    },
+    "model": "bowling_entry.game",
+    "pk": 151
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 36
+    },
+    "model": "bowling_entry.game",
+    "pk": 152
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 36
+    },
+    "model": "bowling_entry.game",
+    "pk": 153
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 37
+    },
+    "model": "bowling_entry.game",
+    "pk": 154
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 37
+    },
+    "model": "bowling_entry.game",
+    "pk": 155
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 37
+    },
+    "model": "bowling_entry.game",
+    "pk": 156
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 38
+    },
+    "model": "bowling_entry.game",
+    "pk": 157
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 38
+    },
+    "model": "bowling_entry.game",
+    "pk": 158
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 38
+    },
+    "model": "bowling_entry.game",
+    "pk": 159
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 39
+    },
+    "model": "bowling_entry.game",
+    "pk": 160
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 39
+    },
+    "model": "bowling_entry.game",
+    "pk": 161
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 39
+    },
+    "model": "bowling_entry.game",
+    "pk": 162
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 40
+    },
+    "model": "bowling_entry.game",
+    "pk": 163
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 40
+    },
+    "model": "bowling_entry.game",
+    "pk": 164
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 40
+    },
+    "model": "bowling_entry.game",
+    "pk": 165
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 41
+    },
+    "model": "bowling_entry.game",
+    "pk": 166
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 41
+    },
+    "model": "bowling_entry.game",
+    "pk": 167
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 41
+    },
+    "model": "bowling_entry.game",
+    "pk": 168
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 42
+    },
+    "model": "bowling_entry.game",
+    "pk": 169
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 42
+    },
+    "model": "bowling_entry.game",
+    "pk": 170
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 42
+    },
+    "model": "bowling_entry.game",
+    "pk": 171
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 43
+    },
+    "model": "bowling_entry.game",
+    "pk": 172
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 43
+    },
+    "model": "bowling_entry.game",
+    "pk": 173
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 43
+    },
+    "model": "bowling_entry.game",
+    "pk": 174
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 44
+    },
+    "model": "bowling_entry.game",
+    "pk": 175
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 44
+    },
+    "model": "bowling_entry.game",
+    "pk": 176
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 44
+    },
+    "model": "bowling_entry.game",
+    "pk": 177
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 45
+    },
+    "model": "bowling_entry.game",
+    "pk": 178
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 45
+    },
+    "model": "bowling_entry.game",
+    "pk": 179
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 45
+    },
+    "model": "bowling_entry.game",
+    "pk": 180
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 46
+    },
+    "model": "bowling_entry.game",
+    "pk": 181
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 46
+    },
+    "model": "bowling_entry.game",
+    "pk": 182
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 46
+    },
+    "model": "bowling_entry.game",
+    "pk": 183
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 47
+    },
+    "model": "bowling_entry.game",
+    "pk": 184
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 47
+    },
+    "model": "bowling_entry.game",
+    "pk": 185
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 47
+    },
+    "model": "bowling_entry.game",
+    "pk": 186
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 48
+    },
+    "model": "bowling_entry.game",
+    "pk": 187
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 48
+    },
+    "model": "bowling_entry.game",
+    "pk": 188
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 48
+    },
+    "model": "bowling_entry.game",
+    "pk": 189
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 49
+    },
+    "model": "bowling_entry.game",
+    "pk": 190
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 49
+    },
+    "model": "bowling_entry.game",
+    "pk": 191
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 49
+    },
+    "model": "bowling_entry.game",
+    "pk": 192
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 1,
+      "bowler": 50
+    },
+    "model": "bowling_entry.game",
+    "pk": 193
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 2,
+      "bowler": 50
+    },
+    "model": "bowling_entry.game",
+    "pk": 194
+  },
+  {
+    "fields": {
+      "total": 0,
+      "game_number": 3,
+      "bowler": 50
+    },
+    "model": "bowling_entry.game",
+    "pk": 195
   },
   {
     "fields": {
@@ -1811,7 +3639,7 @@
       "is_active": true,
       "is_superuser": true,
       "is_staff": true,
-      "last_login": "2015-03-12T20:42:11.138Z",
+      "last_login": "2015-03-20T16:43:30.417Z",
       "groups": [],
       "user_permissions": [],
       "password": "pbkdf2_sha256$15000$BrTLXTWqwuh4$Tgtnw7+MVJEMEK1ZcBYHUVKBRiEK2oszLBNpGj8XP7M=",
@@ -1836,5 +3664,21 @@
     },
     "model": "bowling_entry.league",
     "pk": 3
+  },
+  {
+    "fields": {
+      "name": "League Name",
+      "players_per_team": 4,
+      "handicap_max": 210,
+      "points_for_totals": 2,
+      "handicap_percentage": 90,
+      "number_of_games": 3,
+      "number_of_weeks": 10,
+      "points_per_game": 2,
+      "start_date": "2015-03-19",
+      "secretary": 1
+    },
+    "model": "bowling_entry.league",
+    "pk": 10
   }
 ]
