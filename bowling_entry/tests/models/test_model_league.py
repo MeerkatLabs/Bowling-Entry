@@ -65,3 +65,27 @@ class LeagueCreationTest(TestCase):
             self.assertEqual(week.date, date)
             week_number += 1
             date += delta
+
+    def test_calculate_handicap(self):
+        user = auth_models.User.objects.create_user(username='example', password='example', email='example@example.com')
+        league = bowling_models.League.objects.create(secretary=user, name='Bowling League')
+
+        bowler = bowling_models.BowlerDefinition.objects.create(league=league, name='Name', average=100)
+
+        handicap = league.calculate_handicap(bowler)
+
+        self.assertEqual(handicap, 99)
+
+        bowler.average = None
+
+        handicap = league.calculate_handicap(bowler)
+        self.assertEqual(handicap, None)
+
+        bowler.average = 101
+        handicap = league.calculate_handicap(bowler)
+        self.assertEqual(handicap, 98)
+
+        bowler.average = 220
+        handicap = league.calculate_handicap(bowler)
+
+        self.assertEqual(handicap, 0)

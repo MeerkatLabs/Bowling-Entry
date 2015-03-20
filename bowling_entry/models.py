@@ -48,31 +48,51 @@ class League(models.Model):
         return self.name
 
     def substitutes(self):
+        """
+        Return all of the substitutes in the league
+        """
         return self.bowlers.filter(team=None)
 
     def update_weeks(self):
         """
         Add or remove weeks from the league object.
         """
-
         current_week_count = len(self.weeks.all())
+
         if current_week_count != self.number_of_weeks:
             difference = self.number_of_weeks - current_week_count
+
             if difference > 0:
                 delta = datetime.timedelta(days=7)
                 date = self.start_date
+
                 if current_week_count:
                     last_week = self.weeks.last()
                     date = last_week.date + delta
 
                 current_week_count += 1
 
-                for week_number in range(current_week_count, self.number_of_weeks+1):
+                for week_number in range(current_week_count, self.number_of_weeks + 1):
                     Week.objects.create(week_number=week_number, date=date, league=self)
                     date += delta
             else:
                 # Need to delete weeks from week number higher
                 self.weeks.filter(week_number__gt=self.number_of_weeks).delete()
+
+    def calculate_handicap(self, bowler):
+        """
+        Calculate the handicap of the bowler provided.
+        """
+        handicap = None
+
+        if bowler.average is not None:
+            difference = self.handicap_max - bowler.average
+            if difference <= 0:
+                handicap = 0
+            else:
+                handicap = int(difference * (self.handicap_percentage / 100.0))
+
+        return handicap
 
 
 class Week(models.Model):
@@ -115,7 +135,6 @@ class BowlerDefinition(models.Model):
     name = models.CharField(max_length=100)
     gender = models.CharField(choices=BOWLER_GENDER_CHOICES, max_length=1, default=UNKNOWN)
     average = models.IntegerField(blank=True, null=True)
-    handicap = models.IntegerField(blank=True, null=True)
     league = models.ForeignKey(League, related_name='bowlers', null=False, blank=False)
     team = models.ForeignKey(TeamDefinition, related_name='bowlers', blank=True, null=True)
 
@@ -124,6 +143,12 @@ class BowlerDefinition(models.Model):
             return "%s: %s Substitute Definition" % (self.league, self.name)
         else:
             return "%s: %s Definition" % (self.team, self.name)
+
+    def calculate_handicap(self):
+        """
+        Calculate my handicap
+        """
+        return self.league.calculate_handicap(self)
 
 
 class TeamInstance(models.Model):
@@ -148,9 +173,8 @@ class TeamInstance(models.Model):
 
         # Assume the bowler definition based on the team definition values.
         for bowler in self.definition.bowlers.all():
-            bowler_instance = TeamInstanceBowler(definition=bowler, team=self,
-                                                 type=REGULAR, handicap=bowler.handicap,
-                                                 order=index)
+            bowler_instance = TeamInstanceBowler(order=index, team=self)
+            bowler_instance.update_definition(bowler, REGULAR)
             bowler_instance.save()
             bowler_instance.create_games()
             index += 1
@@ -193,14 +217,14 @@ class TeamInstanceBowler(models.Model):
     def create_games(self):
         game_count = self.definition.league.number_of_games
 
-        for game_number in range(1, game_count+1):
+        for game_number in range(1, game_count + 1):
             game = Game(bowler=self, game_number=game_number)
             game.save()
 
     def update_definition(self, definition, bowler_type=SUBSTITUTE):
         self.definition = definition
         self.type = bowler_type
-        self.handicap = definition.handicap
+        self.handicap = definition.calculate_handicap()
         self.average = definition.average
         self.save()
 

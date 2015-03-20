@@ -62,7 +62,7 @@ class TeamBowlerDefinition(serializers.ModelSerializer):
 
     class Meta:
         model = bowling_models.BowlerDefinition
-        fields = ('id', 'name', 'handicap', )
+        fields = ('id', 'name', 'average', )
 
 
 class TeamDefinition(serializers.ModelSerializer):
@@ -77,7 +77,7 @@ class BowlerDefinition(serializers.ModelSerializer):
 
     class Meta:
         model = bowling_models.BowlerDefinition
-        fields = ('id', 'name', 'gender', 'handicap', 'team', )
+        fields = ('id', 'name', 'gender', 'average', 'team', )
 
     def update(self, instance, validated_data):
         """
@@ -114,7 +114,7 @@ class Substitute(serializers.ModelSerializer):
 
     class Meta:
         model = bowling_models.BowlerDefinition
-        fields = ('id', 'name', 'handicap', 'league', )
+        fields = ('id', 'name', 'average', 'league', )
 
 
 class TeamInstance(serializers.ModelSerializer):
