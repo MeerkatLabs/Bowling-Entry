@@ -306,3 +306,8 @@ class Frame(models.Model):
 
     class Meta:
         ordering = ['frame_number', ]
+
+    def throw_list(self):
+        if len(self.throws):
+            return [int(i) for i in self.throws.split(',')]
+        return []

@@ -1,6 +1,11 @@
+import logging
+
 from rest_framework import serializers
 from bowling_entry import models as bowling_models
 from django.contrib.auth import models as auth_models
+
+
+logger = logging.getLogger(__name__)
 
 
 class LeagueTeams(serializers.ModelSerializer):
@@ -142,10 +147,11 @@ class Match(serializers.ModelSerializer):
         fields = ('id', 'lanes', 'team1', 'team2', 'team1_definition', 'team2_definition', )
 
     def create(self, validated_data):
-        print 'Validated_data %s' % validated_data
-        print 'Context %s' % self.context
 
-        print 'Week: %s' % self.context.get('week')
+        logger.debug('Validated_data %s' % validated_data)
+        logger.debug('Context %s' % self.context)
+
+        logger.debug('Week: %s' % self.context.get('week'))
 
         match = bowling_models.Match(week=self.context.get('week'), lanes=validated_data['lanes'])
         match.save()
@@ -167,9 +173,7 @@ class Match(serializers.ModelSerializer):
         return match
 
     def validate(self, data):
-        print '%s' % data
-
-        print 'Self: %s' % dir(self)
+        logger.debug('%s' % data)
 
         week = self.context.get('week')
 
@@ -180,7 +184,7 @@ class Match(serializers.ModelSerializer):
 
         lane01, lane02 = data.get('lanes').split(',')
 
-        print '%s' % league
+        logger.debug('%s' % league)
 
         if week.league.pk != league.pk:
             raise serializers.ValidationError('Week is not a part of the league.')
