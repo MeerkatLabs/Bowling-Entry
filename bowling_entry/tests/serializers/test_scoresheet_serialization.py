@@ -113,7 +113,10 @@ class ScoreSheetSerializerTestCase(TestCase):
                                 'frames': [
                                     {
                                         'frame_number': 1,
-                                        'throws': [5, 5]
+                                        'throw1_type': 'T',
+                                        'throw1_value': 5,
+                                        'throw2_type': 'T',
+                                        'throw2_value': 5
                                     }
                                 ]
                             }
@@ -144,5 +147,8 @@ class ScoreSheetSerializerTestCase(TestCase):
 
         frame = game.get('frames')[0]
 
-        self.assertEqual(frame.get('throws'), [5, 5])
+        self.assertEqual(frame.get('throw1_type'), 'T')
+        self.assertEqual(frame.get('throw1_value'), 5)
+        self.assertEqual(frame.get('throw2_type'), 'T')
+        self.assertEqual(frame.get('throw2_value'), 5)
 

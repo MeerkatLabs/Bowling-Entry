@@ -1,10 +1,5 @@
-import logging
-
 from rest_framework import serializers
 from bowling_entry import models as bowling_models
-
-
-logger = logging.getLogger(__name__)
 
 
 class ScoreSheetFrameListSerializer(serializers.ListSerializer):
@@ -13,8 +8,7 @@ class ScoreSheetFrameListSerializer(serializers.ListSerializer):
         ret = []
 
         for frame_data in validated_data:
-            frame, created = instance.get_or_create(frame_number=frame_data.get('frame_number'),
-                                                    defaults={'throws': ''})
+            frame, created = instance.get_or_create(frame_number=frame_data.get('frame_number'))
             result = self.child.update(frame, frame_data)
 
             if result is not None:
@@ -24,36 +18,21 @@ class ScoreSheetFrameListSerializer(serializers.ListSerializer):
 
 
 class ScoreSheetFrame(serializers.ModelSerializer):
-    throws = serializers.ListField(
-        child=serializers.IntegerField(min_value=0, max_value=10),
-        source='throw_list'
-    )
 
     class Meta:
         model = bowling_models.Frame
-        fields = ('frame_number', 'throws', )
+        fields = ('frame_number', 'throw1_type', 'throw1_value', 'throw2_type', 'throw2_value', 'throw3_type',
+                  'throw3_value', )
         list_serializer_class = ScoreSheetFrameListSerializer
-
-    def update(self, instance, validated_data):
-
-        instance.throws = ','.join(str(n) for n in validated_data.get('throw_list'))
-        instance.save()
-
-        return instance
+        extra_kwargs = {'throw2_type': {'required': False},
+                        'throw2_value': {'required': False},
+                        'throw3_type': {'required': False},
+                        'throw3_value': {'required': False}}
 
     def validate(self, attrs):
-        """
-        frame_number must be provided, same with throws
-        :param attrs:
-        :return:
-        """
-        logger.debug(attrs)
-
+        # frame_number must be provided, same with throws
         if attrs.get('frame_number') is None:
             raise serializers.ValidationError('frame_number must be provided')
-        elif attrs.get('throw_list') is None:
-            raise serializers.ValidationError('throws must be provided')
-
         return attrs
 
 
@@ -76,19 +55,11 @@ class ScoreSheetGame(serializers.ModelSerializer):
     game_number = serializers.IntegerField()
     total = serializers.IntegerField()
     frames = ScoreSheetFrame(many=True)
-    splits = serializers.SerializerMethodField()
 
     class Meta:
         model = bowling_models.Game
-        fields = ('game_number', 'total', 'frames', 'splits', )
+        fields = ('game_number', 'total', 'frames', )
         list_serializer_class = ScoreSheetGameListSerializer
-
-    def get_splits(self, obj):
-        splits = []
-        for frame in obj.frames.all():
-            if len(frame.splits):
-                splits += [int(i) for i in frame.splits.split(',')]
-        return splits
 
     def update(self, instance, validated_data):
 
@@ -98,25 +69,10 @@ class ScoreSheetGame(serializers.ModelSerializer):
             instance.total = total_value
         instance.save()
 
+        # TODO: Update the split and frame values.
         frame_data = validated_data.get('frames')
         if frame_data is not None:
             self.fields['frames'].update(instance.frames, frame_data)
-
-        splits = validated_data.get('splits')
-        if splits is not None:
-            dictionary = dict()
-            for frame in instance.fames:
-                dictionary[frame.frame_number] = frame
-                if frame.frame_number == 10:
-                    dictionary[11] = frame
-                    dictionary[12] = frame
-
-            for split in splits:
-                frame = dictionary.get(split, None)
-                if frame is not None:
-                    pass
-
-
 
         return instance
 
@@ -192,6 +148,8 @@ class ScoreSheetBowler(serializers.ModelSerializer):
         # id must always be present
         if attrs.get('id') is None:
             raise serializers.ValidationError("Bowler Id must always be present")
+
+        print '%s' % attrs
 
         # definition and bowler type must be defined together
         if attrs.get('definition') is not None and attrs.get('type') is None:
