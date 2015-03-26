@@ -149,8 +149,6 @@ class ScoreSheetBowler(serializers.ModelSerializer):
         if attrs.get('id') is None:
             raise serializers.ValidationError("Bowler Id must always be present")
 
-        print '%s' % attrs
-
         # definition and bowler type must be defined together
         if attrs.get('definition') is not None and attrs.get('type') is None:
             raise serializers.ValidationError('Bowler definition and type must be present together (type missing)')
