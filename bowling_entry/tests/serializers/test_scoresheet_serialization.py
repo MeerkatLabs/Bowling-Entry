@@ -99,3 +99,56 @@ class ScoreSheetSerializerTestCase(TestCase):
         serializer = scoresheet.ScoreSheet(self.match, data=data, partial=True,)
 
         self.assertFalse(serializer.is_valid())
+
+    def test_frame_update(self):
+        data = {
+            'team1': {
+                'bowlers': [
+                    {
+                        'id': self.match.team1.bowlers.all()[0].pk,
+                        'games': [
+                            {
+                                'game_number': 1,
+                                'total': 150,
+                                'frames': [
+                                    {
+                                        'frame_number': 1,
+                                        'throw1_type': 'T',
+                                        'throw1_value': 5,
+                                        'throw2_type': 'T',
+                                        'throw2_value': 5
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+
+        serializer = scoresheet.ScoreSheet(self.match, data=data, partial=True, )
+        self.assertTrue(serializer.is_valid(raise_exception=True))
+
+        match = serializer.save()
+
+        output_serializer = scoresheet.ScoreSheet(match)
+        data_dict = output_serializer.data
+
+        self.assertIsNotNone(data_dict.get('team1'))
+        team1 = data_dict.get('team1')
+        self.assertIsNotNone(team1.get('bowlers'))
+        bowler = team1.get('bowlers')[0]
+        self.assertIsNotNone(bowler.get('games'))
+        game = bowler.get('games')[0]
+
+        self.assertEqual(game.get('total'), 150)
+        self.assertIsNotNone(game.get('frames'))
+        self.assertEqual(len(game.get('frames')), 1)
+
+        frame = game.get('frames')[0]
+
+        self.assertEqual(frame.get('throw1_type'), 'T')
+        self.assertEqual(frame.get('throw1_value'), 5)
+        self.assertEqual(frame.get('throw2_type'), 'T')
+        self.assertEqual(frame.get('throw2_value'), 5)
+

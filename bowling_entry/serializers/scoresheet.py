@@ -8,8 +8,7 @@ class ScoreSheetFrameListSerializer(serializers.ListSerializer):
         ret = []
 
         for frame_data in validated_data:
-            frame, created = instance.get_or_create(frame_number=frame_data.get('frame_number'),
-                                                    defaults={'throws': ''})
+            frame, created = instance.get_or_create(frame_number=frame_data.get('frame_number'))
             result = self.child.update(frame, frame_data)
 
             if result is not None:
@@ -22,25 +21,18 @@ class ScoreSheetFrame(serializers.ModelSerializer):
 
     class Meta:
         model = bowling_models.Frame
-        fields = ('frame_number', 'throws', )
+        fields = ('frame_number', 'throw1_type', 'throw1_value', 'throw2_type', 'throw2_value', 'throw3_type',
+                  'throw3_value', )
         list_serializer_class = ScoreSheetFrameListSerializer
-
-    def update(self, instance, validated_data):
-
-        print '%s' % validated_data
-        print '%s' % instance
-
-        instance.throws = validated_data.get('throws')
-        instance.save()
-
-        return instance
+        extra_kwargs = {'throw2_type': {'required': False},
+                        'throw2_value': {'required': False},
+                        'throw3_type': {'required': False},
+                        'throw3_value': {'required': False}}
 
     def validate(self, attrs):
         # frame_number must be provided, same with throws
         if attrs.get('frame_number') is None:
             raise serializers.ValidationError('frame_number must be provided')
-        elif attrs.get('throws') is None:
-            raise serializers.ValidationError('throws must be provided')
         return attrs
 
 
@@ -63,21 +55,11 @@ class ScoreSheetGame(serializers.ModelSerializer):
     game_number = serializers.IntegerField()
     total = serializers.IntegerField()
     frames = ScoreSheetFrame(many=True)
-    splits = serializers.SerializerMethodField()
 
     class Meta:
         model = bowling_models.Game
-        fields = ('game_number', 'total', 'frames', 'splits', )
+        fields = ('game_number', 'total', 'frames', )
         list_serializer_class = ScoreSheetGameListSerializer
-
-    def get_splits(self, obj):
-
-        splits = []
-        for frame in obj.frames.all():
-            for split in frame.splits.split(','):
-                splits.append(split)
-
-        return splits
 
     def update(self, instance, validated_data):
 
@@ -159,16 +141,13 @@ class ScoreSheetBowler(serializers.ModelSerializer):
         return total
 
     def validate_definition(self, value):
-        # definition object must either be a member of the team or a league substitute
-        print 'validating definition'
+        # TODO: definition object must either be a member of the team or a league substitute
         return value
 
     def validate(self, attrs):
         # id must always be present
         if attrs.get('id') is None:
             raise serializers.ValidationError("Bowler Id must always be present")
-
-        print '%s' % attrs
 
         # definition and bowler type must be defined together
         if attrs.get('definition') is not None and attrs.get('type') is None:

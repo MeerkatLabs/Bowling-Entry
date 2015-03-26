@@ -27,6 +27,15 @@ BOWLER_GENDER_CHOICES = (
     (UNKNOWN, 'Unknown')
 )
 
+THROW = 'T'
+FOUL = 'F'
+SPLIT = 'S'
+FRAME_THROW_CHOICES = (
+    (THROW, 'Throw'),
+    (FOUL, 'Foul'),
+    (SPLIT, 'Split')
+)
+
 
 class League(models.Model):
     """
@@ -301,8 +310,20 @@ class Game(models.Model):
 class Frame(models.Model):
     game = models.ForeignKey(Game, related_name='frames')
     frame_number = models.IntegerField(blank=False)
-    throws = models.CommaSeparatedIntegerField(max_length=10, blank=False)
-    splits = models.CommaSeparatedIntegerField(max_length=10, blank=True)
+
+    throw1_type = models.CharField(max_length=1, choices=FRAME_THROW_CHOICES, default=THROW, blank=False, null=False)
+    throw1_value = models.IntegerField(blank=True, null=True)
+
+    throw2_type = models.CharField(max_length=1, choices=FRAME_THROW_CHOICES, default=THROW, blank=True, null=True)
+    throw2_value = models.IntegerField(blank=True, null=True)
+
+    throw3_type = models.CharField(max_length=1, choices=FRAME_THROW_CHOICES, default=THROW, blank=True, null=True)
+    throw3_value = models.IntegerField(blank=True, null=True)
 
     class Meta:
         ordering = ['frame_number', ]
+
+    def throw_list(self):
+        if len(self.throws):
+            return [int(i) for i in self.throws.split(',')]
+        return []
